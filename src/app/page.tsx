@@ -47,7 +47,7 @@ function Footer() {
               <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center text-2xl shadow-lg">🐕</div>
               <span className="text-2xl font-bold"><span className="text-yellow-400">Shiba</span><span className="text-white">Lab</span></span>
             </div>
-            <p className="text-gray-400 text-sm mb-4">Professional SHIB mining platform with 140% total return in 30 days. Trusted by 127,000+ users worldwide.</p>
+            <p className="text-gray-400 text-sm mb-4">Professional SHIB mining platform with 140% total return in 30 days. Join thousands of miners worldwide.</p>
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 hover:bg-green-500/30 text-green-400 rounded-lg text-sm transition-all">
               <WAIcon /> WhatsApp Support
             </a>
@@ -146,12 +146,12 @@ const useCount = (end: number, dur: number = 2000, start: boolean = true) => {
   return count
 }
 
-// Platform stats
-const getStats = () => ({
-  totalUsers: 127845 + Math.floor(Math.random() * 100),
-  totalInvestment: 892456000000,
-  totalWithdrawals: 356789000000,
-  online: 2847 + Math.floor(Math.random() * 200),
+// Platform stats - default zeros, will be fetched from API
+const getDefaultStats = () => ({
+  totalUsers: 0,
+  totalInvestment: 0,
+  totalWithdrawals: 0,
+  online: 0,
 })
 
 // User data type from API
@@ -199,7 +199,7 @@ export default function Home() {
   const [withAmount, setWithAmount] = useState('')
   const [withAddr, setWithAddr] = useState('')
   const [txs, setTxs] = useState(() => Array(8).fill(null).map(() => genTx(Math.random() > 0.3 ? 'deposit' : 'withdraw')))
-  const [stats, setStats] = useState(getStats)
+  const [stats, setStats] = useState(getDefaultStats)
   const [statsVisible, setStatsVisible] = useState(false)
   const [showRefBanner, setShowRefBanner] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -218,6 +218,11 @@ export default function Home() {
   const animOnline = useCount(stats.online, 2000, statsVisible)
 
   // Effects
+  useEffect(() => {
+    // Fetch platform stats on page load
+    fetchStats()
+  }, [])
+
   useEffect(() => {
     const obs = new IntersectionObserver((e) => { if (e[0].isIntersecting) setStatsVisible(true) }, { threshold: 0.3 })
     if (statsRef.current) obs.observe(statsRef.current)
@@ -445,10 +450,10 @@ export default function Home() {
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 max-w-4xl mx-auto">
               {[
-                { icon: '👥', value: '127K+', label: 'Total Users' },
-                { icon: '💰', value: '892M+', label: 'SHIB Invested' },
-                { icon: '💸', value: '356M+', label: 'SHIB Withdrawn' },
-                { icon: '⭐', value: '4.9/5', label: 'User Rating' },
+                { icon: '👥', value: stats.totalUsers.toLocaleString(), label: 'Total Users' },
+                { icon: '💰', value: formatNumber(stats.totalInvestment), label: 'SHIB Invested' },
+                { icon: '💸', value: formatNumber(stats.totalWithdrawals), label: 'SHIB Withdrawn' },
+                { icon: '🟢', value: stats.online.toLocaleString(), label: 'Online Now' },
               ].map((s, i) => (
                 <div key={i} className="bg-purple-800/30 border border-purple-600/30 rounded-2xl p-4">
                   <div className="text-3xl mb-1">{s.icon}</div>
@@ -625,7 +630,7 @@ export default function Home() {
                       <span className="text-green-400 font-bold">+{formatNumber(pkg.profit, 0)} SHIB</span>
                     </div>
                   </div>
-                  <button type="button" onClick={() => { setSelected(pkg); document.getElementById('connect')?.scrollIntoView({ behavior: 'smooth' }) }}
+                  <button type="button" onClick={() => { setSelectedPackage(pkg); document.getElementById('connect')?.scrollIntoView({ behavior: 'smooth' }) }}
                     className="w-full py-3 rounded-xl bg-white text-gray-900 font-bold hover:bg-gray-100 transition-all">Invest Now</button>
                 </div>
               ))}
@@ -1032,11 +1037,11 @@ export default function Home() {
               
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="bg-purple-900/50 rounded-2xl p-6 border border-purple-600/30 text-center">
-                  <p className="text-4xl font-bold text-yellow-400">12</p>
+                  <p className="text-4xl font-bold text-yellow-400">{userData?.referralCount || 0}</p>
                   <p className="text-gray-400 text-sm">Total Referrals</p>
                 </div>
                 <div className="bg-purple-900/50 rounded-2xl p-6 border border-purple-600/30 text-center">
-                  <p className="text-4xl font-bold text-green-400">256K</p>
+                  <p className="text-4xl font-bold text-green-400">{formatNumber(userData?.referralEarnings || 0, 0)}</p>
                   <p className="text-gray-400 text-sm">Earnings (SHIB)</p>
                 </div>
               </div>
@@ -1044,8 +1049,8 @@ export default function Home() {
               <div className="bg-purple-900/50 rounded-2xl p-6 border border-purple-600/30">
                 <p className="text-gray-400 text-sm mb-2">Your Referral Link</p>
                 <div className="flex items-center gap-3">
-                  <code className="text-yellow-400 font-mono text-sm break-all flex-1">{typeof window !== 'undefined' ? window.location.origin : ''}/?ref={wallet.slice(0, 8)}</code>
-                  <button type="button" onClick={() => copy(`${typeof window !== 'undefined' ? window.location.origin : ''}/?ref=${wallet.slice(0, 8)}`)} className="flex-shrink-0 p-3 rounded-xl bg-yellow-500/20 hover:bg-yellow-500/30 transition-colors">{copied ? '✅' : '📋'}</button>
+                  <code className="text-yellow-400 font-mono text-sm break-all flex-1">{typeof window !== 'undefined' ? window.location.origin : ''}/?ref={userData?.referralCode || wallet.slice(2, 10)}</code>
+                  <button type="button" onClick={() => copy(`${typeof window !== 'undefined' ? window.location.origin : ''}/?ref=${userData?.referralCode || wallet.slice(2, 10)}`)} className="flex-shrink-0 p-3 rounded-xl bg-yellow-500/20 hover:bg-yellow-500/30 transition-colors">{copied ? '✅' : '📋'}</button>
                 </div>
                 <p className="text-gray-500 text-xs mt-3">💡 Share this link! When someone joins through your link, you get 5% bonus.</p>
               </div>
@@ -1063,7 +1068,7 @@ export default function Home() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {miningPackages.map((pkg) => (
                 <div key={pkg.id}
-                  className={`relative bg-gradient-to-br ${pkg.color} bg-opacity-20 rounded-3xl p-6 border-2 ${selected.id === pkg.id ? 'border-yellow-500' : 'border-purple-600/30'} hover:border-yellow-500/50 transition-all`}>
+                  className={`relative bg-gradient-to-br ${pkg.color} bg-opacity-20 rounded-3xl p-6 border-2 ${selectedPackage.id === pkg.id ? 'border-yellow-500' : 'border-purple-600/30'} hover:border-yellow-500/50 transition-all`}>
                   {pkg.popular && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-gray-900 text-xs font-bold px-4 py-1 rounded-full">⭐ POPULAR</div>}
                   <div className="text-center mb-4">
                     <h3 className="text-2xl font-bold text-white">{pkg.name}</h3>
@@ -1074,9 +1079,9 @@ export default function Home() {
                     <div className="flex justify-between"><span className="text-gray-300">Return:</span><span className="text-yellow-400 font-bold">{formatNumber(pkg.totalReturn, 0)} SHIB</span></div>
                     <div className="flex justify-between"><span className="text-gray-300">Profit:</span><span className="text-green-400 font-bold">+{formatNumber(pkg.profit, 0)} SHIB</span></div>
                   </div>
-                  <button type="button" onClick={() => { setSelected(pkg); setView('deposit') }}
-                    className={`w-full py-3 rounded-xl font-bold transition-all ${selected.id === pkg.id ? 'bg-yellow-500 text-gray-900' : 'bg-white/20 text-white hover:bg-white/30'}`}>
-                    {selected.id === pkg.id ? '✓ Selected' : 'Select'}
+                  <button type="button" onClick={() => { setSelectedPackage(pkg); setView('deposit') }}
+                    className={`w-full py-3 rounded-xl font-bold transition-all ${selectedPackage.id === pkg.id ? 'bg-yellow-500 text-gray-900' : 'bg-white/20 text-white hover:bg-white/30'}`}>
+                    {selectedPackage.id === pkg.id ? '✓ Selected' : 'Select'}
                   </button>
                 </div>
               ))}

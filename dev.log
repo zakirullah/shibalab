@@ -152,3 +152,246 @@ Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allow
  GET / 200 in 50ms (compile: 4ms, render: 46ms)
 ✓ Compiled in 217ms
 ✓ Compiled in 264ms
+✓ Compiled in 216ms
+✓ Compiled in 220ms
+Invalid DATABASE_URL format. Must start with postgresql:// or postgres://
+Current URL starts with: file:/home/z/my-project/db/cus...
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:96:170
+
+  93 async function GET() {
+  94     try {
+  95         // Get stats from database
+→ 96         let stats = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:96:170
+
+  93 async function GET() {
+  94     try {
+  95         // Get stats from database
+→ 96         let stats = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:8:44)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:8:17)
+   6 |   try {
+   7 |     // Get stats from database
+>  8 |     let stats = await prisma.platformStats.findUnique({
+     |                                            ^
+   9 |       where: { id: 'stats' }
+  10 |     })
+  11 | {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 440ms (compile: 270ms, render: 170ms)
+✓ Compiled in 185ms
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:96:170
+
+  93 async function GET() {
+  94     try {
+  95         // Get stats from database
+→ 96         let stats = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:96:170
+
+  93 async function GET() {
+  94     try {
+  95         // Get stats from database
+→ 96         let stats = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:8:44)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:8:17)
+   6 |   try {
+   7 |     // Get stats from database
+>  8 |     let stats = await prisma.platformStats.findUnique({
+     |                                            ^
+   9 |       where: { id: 'stats' }
+  10 |     })
+  11 | {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 142ms (compile: 3ms, render: 139ms)
+✓ Compiled in 230ms
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:96:170
+
+  93 async function GET() {
+  94     try {
+  95         // Get stats from database
+→ 96         let stats = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:96:170
+
+  93 async function GET() {
+  94     try {
+  95         // Get stats from database
+→ 96         let stats = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:8:44)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:8:17)
+   6 |   try {
+   7 |     // Get stats from database
+>  8 |     let stats = await prisma.platformStats.findUnique({
+     |                                            ^
+   9 |       where: { id: 'stats' }
+  10 |     })
+  11 | {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 139ms (compile: 3ms, render: 136ms)
+✓ Compiled in 231ms
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:96:170
+
+  93 async function GET() {
+  94     try {
+  95         // Get stats from database
+→ 96         let stats = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:96:170
+
+  93 async function GET() {
+  94     try {
+  95         // Get stats from database
+→ 96         let stats = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:8:44)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:8:17)
+   6 |   try {
+   7 |     // Get stats from database
+>  8 |     let stats = await prisma.platformStats.findUnique({
+     |                                            ^
+   9 |       where: { id: 'stats' }
+  10 |     })
+  11 | {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 141ms (compile: 3ms, render: 138ms)
+✓ Compiled in 208ms
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:96:170
+
+  93 async function GET() {
+  94     try {
+  95         // Get stats from database
+→ 96         let stats = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:96:170
+
+  93 async function GET() {
+  94     try {
+  95         // Get stats from database
+→ 96         let stats = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].platformStats.findUnique(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:8:44)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:8:17)
+   6 |   try {
+   7 |     // Get stats from database
+>  8 |     let stats = await prisma.platformStats.findUnique({
+     |                                            ^
+   9 |       where: { id: 'stats' }
+  10 |     })
+  11 | {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 134ms (compile: 3ms, render: 131ms)
