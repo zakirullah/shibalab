@@ -34,10 +34,11 @@ model ActivePackage {
   id              String   @id @default(cuid())
   userId          String   @unique
   packageId       Int
-  amount          Float
-  dailyProfit     Float
+  investment      Float
+  dailyEarning    Float
   totalReturn     Float
-  daysRemaining   Int
+  daysRemaining   Int      @default(30)
+  isActive        Boolean  @default(true)
   startDate       DateTime @default(now())
   endDate         DateTime
   createdAt       DateTime @default(now())
