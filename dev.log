@@ -3436,3 +3436,2341 @@ Validation Error Count: 1
   retryable: undefined
 }
  GET /api/live?limit=20 500 in 131ms (compile: 6ms, render: 126ms)
+Invalid DATABASE_URL format. Must start with postgresql:// or postgres://
+Current URL starts with: file:/home/z/my-project/db/cus...
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 158ms (compile: 27ms, render: 131ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 95ms (compile: 3ms, render: 92ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 110ms (compile: 1987µs, render: 108ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 93ms (compile: 2ms, render: 91ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 87ms (compile: 1493µs, render: 86ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 116ms (compile: 3ms, render: 114ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 115ms (compile: 2ms, render: 113ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 121ms (compile: 2ms, render: 119ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 135ms (compile: 5ms, render: 130ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 114ms (compile: 2ms, render: 112ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 111ms (compile: 2ms, render: 109ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 129ms (compile: 2ms, render: 126ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 110ms (compile: 2ms, render: 108ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 102ms (compile: 1471µs, render: 101ms)
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET / 200 in 64ms (compile: 38ms, render: 26ms)
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET / 200 in 14ms (compile: 2ms, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 23ms (compile: 2ms, render: 20ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 12ms (compile: 1949µs, render: 10ms)
+ GET / 200 in 14ms (compile: 1951µs, render: 12ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 14ms (compile: 1952µs, render: 12ms)
+ GET / 200 in 18ms (compile: 2ms, render: 16ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 15ms (compile: 2ms, render: 12ms)
+ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+Invalid DATABASE_URL format. Must start with postgresql:// or postgres://
+Current URL starts with: file:/home/z/my-project/db/cus...
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 172ms (compile: 33ms, render: 139ms)
+ GET / 200 in 177ms (compile: 3ms, render: 175ms)
+ GET / 200 in 15ms (compile: 2ms, render: 12ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 150ms (compile: 19ms, render: 131ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 114ms (compile: 1904µs, render: 112ms)
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET / 200 in 70ms (compile: 40ms, render: 31ms)
+ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 13ms (compile: 1970µs, render: 11ms)
+ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+ GET / 200 in 13ms (compile: 1988µs, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 13ms (compile: 1875µs, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 13ms (compile: 3ms, render: 11ms)
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET / 200 in 18ms (compile: 2ms, render: 16ms)
+ GET / 200 in 13ms (compile: 1939µs, render: 11ms)
+ GET / 200 in 13ms (compile: 1986µs, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 11ms)
+ GET / 200 in 12ms (compile: 1944µs, render: 10ms)
+ GET / 200 in 13ms (compile: 1965µs, render: 11ms)
+ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 16ms (compile: 2ms, render: 13ms)
+Invalid DATABASE_URL format. Must start with postgresql:// or postgres://
+Current URL starts with: file:/home/z/my-project/db/cus...
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 149ms (compile: 23ms, render: 126ms)
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET / 200 in 64ms (compile: 41ms, render: 23ms)
+ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+ GET / 200 in 14ms (compile: 2ms, render: 11ms)
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+Invalid DATABASE_URL format. Must start with postgresql:// or postgres://
+Current URL starts with: file:/home/z/my-project/db/cus...
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 163ms (compile: 23ms, render: 140ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 151ms (compile: 16ms, render: 135ms)
+ GET / 200 in 13ms (compile: 1655µs, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 11ms)
+ GET / 200 in 15ms (compile: 3ms, render: 12ms)
+ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+ GET / 200 in 20ms (compile: 9ms, render: 11ms)
+ GET / 200 in 12ms (compile: 1987µs, render: 10ms)
+ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+ GET / 200 in 13ms (compile: 1998µs, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 14ms (compile: 2ms, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 11ms)
+ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+ GET / 200 in 12ms (compile: 1953µs, render: 10ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 22ms (compile: 1742µs, render: 20ms)
+Invalid DATABASE_URL format. Must start with postgresql:// or postgres://
+Current URL starts with: file:/home/z/my-project/db/cus...
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 159ms (compile: 25ms, render: 134ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 128ms (compile: 16ms, render: 112ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 121ms (compile: 2ms, render: 119ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 137ms (compile: 5ms, render: 132ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 124ms (compile: 3ms, render: 121ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 122ms (compile: 1641µs, render: 120ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 108ms (compile: 2ms, render: 105ms)
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+✓ Compiled in 302ms
+ GET / 200 in 126ms (compile: 102ms, render: 24ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+✓ Compiled in 0ms
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET / 200 in 18ms (compile: 2ms, render: 15ms)
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET / 200 in 15ms (compile: 3ms, render: 13ms)
+ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+ GET / 200 in 24ms (compile: 3ms, render: 21ms)
+ GET / 200 in 15ms (compile: 2ms, render: 12ms)
+ GET / 200 in 15ms (compile: 3ms, render: 12ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 14ms (compile: 2ms, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 31ms (compile: 17ms, render: 14ms)
+ GET / 200 in 15ms (compile: 2ms, render: 12ms)
+ GET / 200 in 12ms (compile: 1882µs, render: 10ms)
+ GET / 200 in 13ms (compile: 1957µs, render: 11ms)
+ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+ GET / 200 in 14ms (compile: 3ms, render: 11ms)
+ GET / 200 in 12ms (compile: 1862µs, render: 10ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 11ms)
+ GET / 200 in 13ms (compile: 1982µs, render: 11ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 13ms (compile: 3ms, render: 11ms)
+ GET / 200 in 14ms (compile: 2ms, render: 11ms)
+Invalid DATABASE_URL format. Must start with postgresql:// or postgres://
+Current URL starts with: file:/home/z/my-project/db/cus...
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 131ms (compile: 24ms, render: 107ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 120ms (compile: 15ms, render: 105ms)
+ GET / 200 in 13ms (compile: 1947µs, render: 11ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 30ms (compile: 1919µs, render: 28ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 13ms (compile: 1991µs, render: 11ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 141ms (compile: 3ms, render: 139ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 108ms (compile: 3ms, render: 106ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 100ms (compile: 1622µs, render: 98ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 100ms (compile: 2ms, render: 98ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 106ms (compile: 3ms, render: 103ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 203ms (compile: 101ms, render: 102ms)
+✓ Compiled in 312ms
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 93ms (compile: 2ms, render: 91ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 100ms (compile: 2ms, render: 98ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 110ms (compile: 2ms, render: 108ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 110ms (compile: 2ms, render: 108ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 90ms (compile: 1957µs, render: 88ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 87ms (compile: 1374µs, render: 86ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 103ms (compile: 1927µs, render: 101ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 108ms (compile: 2ms, render: 106ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 122ms (compile: 2ms, render: 120ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 138ms (compile: 5ms, render: 132ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent CONFIRMED deposits only
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent CONFIRMED deposits only
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       where: { status: 'confirmed' },
+  12 |       take: limit,
+  13 |       orderBy: { createdAt: 'desc' }, {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 118ms (compile: 3ms, render: 115ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 154ms (compile: 1676µs, render: 153ms)

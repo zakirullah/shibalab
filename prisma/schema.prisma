@@ -109,3 +109,29 @@ model Visitor {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+model Admin {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  password     String
+  email        String   @unique
+  role         String   @default("admin")
+  isActive     Boolean  @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model PlatformSettings {
+  id                    String   @id @default("settings")
+  platformWallet        String
+  whatsappLink          String
+  totalReturnPercent    Float    @default(140)
+  profitPercent         Float    @default(40)
+  durationDays          Int      @default(30)
+  referralBonusPercent  Float    @default(5)
+  minDeposit            Float    @default(100000)
+  minWithdraw           Float    @default(50000)
+  maintenanceMode       Boolean  @default(false)
+  updatedAt             DateTime @updatedAt
+}
