@@ -5,8 +5,15 @@ import { prisma } from '@/lib/prisma'
 export async function GET(request: NextRequest) {
   try {
     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20')
+    const status = request.nextUrl.searchParams.get('status') // pending, confirmed, rejected
+
+    const whereClause: any = {}
+    if (status) {
+      whereClause.status = status
+    }
 
     const deposits = await prisma.deposit.findMany({
+      where: whereClause,
       take: limit,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -22,6 +29,7 @@ export async function GET(request: NextRequest) {
         id: d.id,
         amount: d.amount,
         packageId: d.packageId,
+        transactionHash: d.transactionHash,
         status: d.status,
         wallet: d.user.wallet,
         createdAt: d.createdAt
@@ -33,7 +41,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Create new deposit
+// POST - Create new deposit (PENDING - requires admin approval)
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -75,116 +83,37 @@ export async function POST(request: NextRequest) {
     }
 
     const depositAmount = parseFloat(amount)
-    const packages = [
-      { id: 1, name: 'Starter', deposit: 100000, totalReturn: 140000, profit: 40000 },
-      { id: 2, name: 'Bronze', deposit: 250000, totalReturn: 350000, profit: 100000 },
-      { id: 3, name: 'Silver', deposit: 500000, totalReturn: 700000, profit: 200000 },
-      { id: 4, name: 'Gold', deposit: 1000000, totalReturn: 1400000, profit: 400000 },
-      { id: 5, name: 'Platinum', deposit: 2500000, totalReturn: 3500000, profit: 1000000 },
-      { id: 6, name: 'Diamond', deposit: 5000000, totalReturn: 7000000, profit: 2000000 },
-    ]
-    const pkg = packages.find(p => p.id === packageId) || packages[0]
 
-    const now = new Date()
-    const endDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000)
-
-    // Create deposit in transaction
-    const result = await prisma.$transaction(async (tx) => {
-      // Create deposit
-      const deposit = await tx.deposit.create({
-        data: {
-          userId: user!.id,
-          amount: depositAmount,
-          transactionHash,
-          packageId,
-          status: 'confirmed',
-          confirmedAt: now
-        }
-      })
-
-      // Update user
-      await tx.user.update({
-        where: { id: user!.id },
-        data: {
-          totalInvested: { increment: depositAmount },
-          balance: { increment: depositAmount }
-        }
-      })
-
-      // Create or update active package
-      await tx.activePackage.upsert({
-        where: { userId: user!.id },
-        update: {
-          packageId,
-          investment: depositAmount,
-          totalReturn: pkg.totalReturn,
-          dailyEarning: pkg.profit / 30,
-          startDate: now,
-          endDate,
-          daysRemaining: 30,
-          isActive: true
-        },
-        create: {
-          userId: user!.id,
-          packageId,
-          investment: depositAmount,
-          totalReturn: pkg.totalReturn,
-          dailyEarning: pkg.profit / 30,
-          startDate: now,
-          endDate,
-          daysRemaining: 30
-        }
-      })
-
-      // Create transaction record
-      await tx.transaction.create({
-        data: {
-          userId: user!.id,
-          type: 'deposit',
-          amount: depositAmount,
-          status: 'completed'
-        }
-      })
-
-      // Update platform stats
-      await tx.platformStats.upsert({
-        where: { id: 'stats' },
-        update: { totalInvested: { increment: depositAmount } },
-        create: { id: 'stats', totalInvested: depositAmount }
-      })
-
-      // Handle referral bonus
-      if (user!.referredBy) {
-        const referrer = await tx.user.findUnique({
-          where: { wallet: user!.referredBy }
-        })
-        if (referrer) {
-          const bonus = depositAmount * 0.05
-          await tx.user.update({
-            where: { id: referrer.id },
-            data: {
-              referralEarnings: { increment: bonus },
-              balance: { increment: bonus }
-            }
-          })
-          await tx.transaction.create({
-            data: {
-              userId: referrer.id,
-              type: 'referral',
-              amount: bonus,
-              status: 'completed'
-            }
-          })
-        }
+    // Create deposit as PENDING - requires admin approval
+    const deposit = await prisma.deposit.create({
+      data: {
+        userId: user.id,
+        amount: depositAmount,
+        transactionHash,
+        packageId,
+        status: 'pending' // PENDING - will be confirmed by admin
       }
+    })
 
-      return deposit
+    // Create transaction record
+    await prisma.transaction.create({
+      data: {
+        userId: user.id,
+        type: 'deposit_pending',
+        amount: depositAmount,
+        status: 'pending'
+      }
     })
 
     return NextResponse.json({
       success: true,
-      message: 'Deposit confirmed! Mining has started.',
-      deposit: result
+      message: 'Deposit submitted! Waiting for admin confirmation. Mining will start after verification.',
+      deposit: {
+        id: deposit.id,
+        amount: deposit.amount,
+        status: deposit.status,
+        packageId: deposit.packageId
+      }
     })
   } catch (error) {
     console.error('Deposit Error:', error)

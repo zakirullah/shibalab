@@ -399,11 +399,12 @@ export default function Home() {
       const data = await res.json()
       
       if (data.success) {
-        alert('Deposit confirmed! Mining has started.')
+        alert('✅ Deposit submitted successfully!\n\n⏳ Status: PENDING\n\nYour deposit is waiting for admin verification. Mining will start after confirmation.\n\nYou will be notified once approved.')
         setDepAmount('')
         setDepTx('')
         fetchUserData(wallet)
         fetchStats()
+        setView('dashboard')
       } else {
         alert(data.error || 'Deposit failed')
       }

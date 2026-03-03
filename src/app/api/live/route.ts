@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
-// GET - Get live transactions (real deposits and withdrawals)
+// GET - Get live transactions (only confirmed deposits and completed withdrawals)
 export async function GET(request: NextRequest) {
   try {
     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20')
 
-    // Get recent deposits
+    // Get recent CONFIRMED deposits only
     const deposits = await prisma.deposit.findMany({
+      where: { status: 'confirmed' },
       take: limit,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -17,8 +18,9 @@ export async function GET(request: NextRequest) {
       }
     })
 
-    // Get recent withdrawals
+    // Get recent COMPLETED withdrawals only
     const withdrawals = await prisma.withdrawal.findMany({
+      where: { status: 'completed' },
       take: limit,
       orderBy: { createdAt: 'desc' },
       include: {
