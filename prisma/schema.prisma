@@ -23,9 +23,26 @@ model User {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
+  activePackage   ActivePackage?
   deposits        Deposit[]
   withdrawals     Withdrawal[]
   transactions    Transaction[]
+}
+
+model ActivePackage {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  packageId       Int
+  amount          Float
+  dailyProfit     Float
+  totalReturn     Float
+  daysRemaining   Int
+  startDate       DateTime @default(now())
+  endDate         DateTime
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Deposit {
