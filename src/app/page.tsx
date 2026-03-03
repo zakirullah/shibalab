@@ -154,6 +154,32 @@ const getStats = () => ({
   online: 2847 + Math.floor(Math.random() * 200),
 })
 
+// User data type from API
+type UserData = {
+  id: string
+  wallet: string
+  balance: number
+  totalInvested: number
+  totalEarned: number
+  referredBy: string | null
+  referralCode: string
+  referralEarnings: number
+  referralCount: number
+  isActive: boolean
+  activePackage: {
+    packageId: number
+    investment: number
+    dailyEarning: number
+    totalReturn: number
+    daysRemaining: number
+    startDate: string
+    endDate: string
+  } | null
+  deposits: any[]
+  withdrawals: any[]
+  transactions: any[]
+}
+
 export default function Home() {
   // State
   const [wallet, setWallet] = useState('')
@@ -166,8 +192,8 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [calcInput, setCalcInput] = useState('')
   const [calcRes, setCalcRes] = useState<ReturnType<typeof calcEarnings> | null>(null)
-  const [balance, setBalance] = useState(0.00065394)
-  const [selected, setSelected] = useState(miningPackages[3])
+  const [userData, setUserData] = useState<UserData | null>(null)
+  const [selectedPackage, setSelectedPackage] = useState(miningPackages[0])
   const [depAmount, setDepAmount] = useState('')
   const [depTx, setDepTx] = useState('')
   const [withAmount, setWithAmount] = useState('')
@@ -182,6 +208,7 @@ export default function Home() {
     }
     return false
   })
+  const [submitting, setSubmitting] = useState(false)
   const statsRef = useRef<HTMLDivElement>(null)
   
   // Animated counters
@@ -207,18 +234,65 @@ export default function Home() {
     return () => clearInterval(int)
   }, [])
 
+  // Fetch user data from API
+  const fetchUserData = async (walletAddress: string) => {
+    try {
+      const res = await fetch(`/api/user?wallet=${walletAddress}`)
+      const data = await res.json()
+      if (data.success) {
+        setUserData(data.user)
+      }
+    } catch (err) {
+      console.error('Failed to fetch user data:', err)
+    }
+  }
+
+  // Fetch platform stats
+  const fetchStats = async () => {
+    try {
+      const res = await fetch('/api/stats')
+      const data = await res.json()
+      if (data.success) {
+        setStats({
+          totalUsers: data.stats.totalUsers,
+          totalInvestment: data.stats.totalInvested,
+          totalWithdrawals: data.stats.totalWithdrawn,
+          online: data.stats.onlineUsers,
+        })
+      }
+    } catch (err) {
+      console.error('Failed to fetch stats:', err)
+    }
+  }
+
+  // Real-time balance update (simulate earning)
   useEffect(() => {
-    if (!loggedIn) return
-    const int = setInterval(() => setBalance(p => p + 0.00000005), 1000)
+    if (!loggedIn || !userData?.activePackage) return
+    const dailyEarning = userData.activePackage.dailyEarning
+    const perSecond = dailyEarning / 86400
+    const int = setInterval(() => {
+      setUserData(prev => prev ? {
+        ...prev,
+        balance: prev.balance + perSecond,
+        totalEarned: prev.totalEarned + perSecond
+      } : null)
+    }, 1000)
     return () => clearInterval(int)
-  }, [loggedIn])
+  }, [loggedIn, userData?.activePackage])
+
+  // Refresh user data periodically
+  useEffect(() => {
+    if (!loggedIn || !wallet) return
+    const int = setInterval(() => fetchUserData(wallet), 30000)
+    return () => clearInterval(int)
+  }, [loggedIn, wallet])
 
   // Handlers
   const copy = async (text: string) => {
     try { await navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch {}
   }
 
-  const connect = () => {
+  const connect = async () => {
     setError('')
     const t = wallet.trim()
     if (!t) { setError('Please enter your BSC wallet address'); return }
@@ -226,7 +300,30 @@ export default function Home() {
     if (t.length !== 42) { setError(`Must be 42 characters (currently ${t.length})`); return }
     if (!isValidBSC(t)) { setError('Invalid BSC address format'); return }
     setLoading(true)
-    setTimeout(() => { setLoggedIn(true); setView('dashboard'); setLoading(false); setWithAddr(t) }, 1500)
+    
+    try {
+      // Register/login user via API
+      const res = await fetch('/api/user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ wallet: t }),
+      })
+      const data = await res.json()
+      
+      if (data.success) {
+        setUserData(data.user)
+        setLoggedIn(true)
+        setView('dashboard')
+        setWithAddr(t)
+        fetchStats()
+      } else {
+        setError(data.error || 'Failed to connect')
+      }
+    } catch (err) {
+      setError('Connection failed. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleCalc = (v: string) => {
@@ -235,18 +332,71 @@ export default function Home() {
     setCalcRes(!isNaN(n) && n > 0 ? calcEarnings(n) : null)
   }
 
-  const handleDep = () => {
+  const handleDep = async () => {
     if (!depAmount || parseFloat(depAmount) < 100000) { alert('Minimum 100,000 SHIB'); return }
     if (!depTx || depTx.length < 10) { alert('Enter valid transaction hash'); return }
-    alert('Deposit submitted! Mining starts after confirmation.')
-    setDepAmount(''); setDepTx('')
+    if (!wallet) { alert('Please connect wallet first'); return }
+    
+    setSubmitting(true)
+    try {
+      const res = await fetch('/api/deposit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          wallet,
+          amount: parseFloat(depAmount),
+          packageId: selectedPackage.id,
+          transactionHash: depTx,
+        }),
+      })
+      const data = await res.json()
+      
+      if (data.success) {
+        alert('Deposit confirmed! Mining has started.')
+        setDepAmount('')
+        setDepTx('')
+        fetchUserData(wallet)
+        fetchStats()
+      } else {
+        alert(data.error || 'Deposit failed')
+      }
+    } catch (err) {
+      alert('Failed to submit deposit')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
-  const handleWith = () => {
+  const handleWith = async () => {
     if (!withAmount || parseFloat(withAmount) < 50000) { alert('Minimum 50,000 SHIB'); return }
     if (!withAddr || !isValidBSC(withAddr)) { alert('Enter valid BSC address'); return }
-    alert('Withdrawal submitted! You will receive SHIB within 24 hours.')
-    setWithAmount('')
+    if (!wallet) { alert('Please connect wallet first'); return }
+    
+    setSubmitting(true)
+    try {
+      const res = await fetch('/api/withdraw', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          wallet,
+          amount: parseFloat(withAmount),
+          walletAddress: withAddr,
+        }),
+      })
+      const data = await res.json()
+      
+      if (data.success) {
+        alert('Withdrawal submitted! You will receive SHIB within 24 hours.')
+        setWithAmount('')
+        fetchUserData(wallet)
+      } else {
+        alert(data.error || 'Withdrawal failed')
+      }
+    } catch (err) {
+      alert('Failed to submit withdrawal')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   // LANDING PAGE
@@ -678,12 +828,18 @@ export default function Home() {
             <div className="bg-gradient-to-br from-purple-800/50 to-purple-900/50 rounded-3xl p-6 border border-purple-600/30">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-white">💰 Your Balance</h3>
-                <span className="px-3 py-1 bg-green-500/20 rounded-full text-green-400 text-xs font-medium flex items-center gap-1">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Mining Active
-                </span>
+                {userData?.activePackage ? (
+                  <span className="px-3 py-1 bg-green-500/20 rounded-full text-green-400 text-xs font-medium flex items-center gap-1">
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Mining Active
+                  </span>
+                ) : (
+                  <span className="px-3 py-1 bg-yellow-500/20 rounded-full text-yellow-400 text-xs font-medium">
+                    No Active Package
+                  </span>
+                )}
               </div>
               <div className="text-center py-8">
-                <p className="text-5xl md:text-6xl font-bold text-white font-mono mb-2">{formatExact(balance)}</p>
+                <p className="text-5xl md:text-6xl font-bold text-white font-mono mb-2">{formatExact(userData?.balance || 0)}</p>
                 <p className="text-yellow-400 text-2xl">SHIB</p>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -691,25 +847,58 @@ export default function Home() {
                 <button type="button" onClick={() => setView('withdraw')} className="py-4 rounded-xl bg-gradient-to-r from-red-500 to-pink-500 text-white font-bold hover:from-red-400 hover:to-pink-400 transition-all">💸 Withdraw</button>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-yellow-500/20 to-amber-500/20 rounded-3xl p-6 border-2 border-yellow-500/50">
-              <h3 className="text-lg font-semibold text-yellow-400 mb-4">⭐ Active Package: {selected.name}</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-black/20 rounded-xl p-4 text-center">
-                  <p className="text-gray-400 text-sm">Investment</p>
-                  <p className="text-white font-bold">{formatNumber(selected.deposit, 0)} SHIB</p>
+            
+            {/* Active Package */}
+            {userData?.activePackage ? (
+              <div className="bg-gradient-to-br from-yellow-500/20 to-amber-500/20 rounded-3xl p-6 border-2 border-yellow-500/50">
+                <h3 className="text-lg font-semibold text-yellow-400 mb-4">
+                  ⭐ Active Package: {miningPackages.find(p => p.id === userData.activePackage?.packageId)?.name || 'Unknown'}
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="bg-black/20 rounded-xl p-4 text-center">
+                    <p className="text-gray-400 text-sm">Investment</p>
+                    <p className="text-white font-bold">{formatNumber(userData.activePackage.investment, 0)} SHIB</p>
+                  </div>
+                  <div className="bg-black/20 rounded-xl p-4 text-center">
+                    <p className="text-gray-400 text-sm">Total Return</p>
+                    <p className="text-yellow-400 font-bold">{formatNumber(userData.activePackage.totalReturn, 0)} SHIB</p>
+                  </div>
+                  <div className="bg-black/20 rounded-xl p-4 text-center">
+                    <p className="text-gray-400 text-sm">Daily Earnings</p>
+                    <p className="text-green-400 font-bold">+{formatNumber(userData.activePackage.dailyEarning, 0)} SHIB</p>
+                  </div>
+                  <div className="bg-black/20 rounded-xl p-4 text-center">
+                    <p className="text-gray-400 text-sm">Remaining</p>
+                    <p className="text-white font-bold">{userData.activePackage.daysRemaining} Days</p>
+                  </div>
                 </div>
-                <div className="bg-black/20 rounded-xl p-4 text-center">
-                  <p className="text-gray-400 text-sm">Total Return</p>
-                  <p className="text-yellow-400 font-bold">{formatNumber(selected.totalReturn, 0)} SHIB</p>
-                </div>
-                <div className="bg-black/20 rounded-xl p-4 text-center">
-                  <p className="text-gray-400 text-sm">Daily Earnings</p>
-                  <p className="text-green-400 font-bold">+{formatNumber(selected.profit / 30, 0)} SHIB</p>
-                </div>
-                <div className="bg-black/20 rounded-xl p-4 text-center">
-                  <p className="text-gray-400 text-sm">Remaining</p>
-                  <p className="text-white font-bold">23 Days</p>
-                </div>
+              </div>
+            ) : (
+              <div className="bg-gradient-to-br from-purple-800/30 to-purple-900/30 rounded-3xl p-8 border border-purple-600/30 text-center">
+                <p className="text-gray-400 mb-4">You don't have an active package yet</p>
+                <button type="button" onClick={() => setView('deposit')} className="px-6 py-3 rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 font-bold">
+                  Start Mining Now
+                </button>
+              </div>
+            )}
+            
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-purple-800/30 rounded-2xl p-4 border border-purple-600/30">
+                <p className="text-gray-400 text-xs">Total Invested</p>
+                <p className="text-white font-bold">{formatNumber(userData?.totalInvested || 0)} SHIB</p>
+              </div>
+              <div className="bg-purple-800/30 rounded-2xl p-4 border border-purple-600/30">
+                <p className="text-gray-400 text-xs">Total Earned</p>
+                <p className="text-green-400 font-bold">{formatNumber(userData?.totalEarned || 0)} SHIB</p>
+              </div>
+              <div className="bg-purple-800/30 rounded-2xl p-4 border border-purple-600/30">
+                <p className="text-gray-400 text-xs">Referral Earnings</p>
+                <p className="text-yellow-400 font-bold">{formatNumber(userData?.referralEarnings || 0)} SHIB</p>
+              </div>
+              <div className="bg-purple-800/30 rounded-2xl p-4 border border-purple-600/30">
+                <p className="text-gray-400 text-xs">Referrals</p>
+                <p className="text-white font-bold">{userData?.referralCount || 0}</p>
               </div>
             </div>
           </div>
@@ -720,7 +909,27 @@ export default function Home() {
           <div className="space-y-6">
             <div className="bg-gradient-to-br from-purple-800/50 to-purple-900/50 rounded-3xl p-6 border border-purple-600/30">
               <h2 className="text-2xl font-bold text-white mb-2">💰 Make Deposit</h2>
-              <p className="text-gray-400 text-sm mb-6">Send SHIB to the platform wallet</p>
+              <p className="text-gray-400 text-sm mb-6">Send SHIB to the platform wallet and select a package</p>
+              
+              {/* Package Selection */}
+              <div className="mb-6">
+                <label className="block text-gray-300 text-sm font-medium mb-3">Select Package</label>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {miningPackages.map((pkg) => (
+                    <button
+                      key={pkg.id}
+                      type="button"
+                      onClick={() => { setSelectedPackage(pkg); setDepAmount(pkg.deposit.toString()); }}
+                      className={`relative p-4 rounded-xl border-2 transition-all ${selectedPackage.id === pkg.id ? 'border-yellow-500 bg-yellow-500/20' : 'border-purple-600/50 bg-purple-900/30 hover:border-yellow-500/50'}`}
+                    >
+                      {pkg.popular && <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-yellow-500 text-gray-900 text-[10px] font-bold px-2 py-0.5 rounded-full">⭐</span>}
+                      <p className="text-white font-bold">{pkg.name}</p>
+                      <p className="text-yellow-400 text-sm">{formatNumber(pkg.deposit, 0)} SHIB</p>
+                      <p className="text-green-400 text-xs">+{formatNumber(pkg.profit, 0)} profit</p>
+                    </button>
+                  ))}
+                </div>
+              </div>
               
               <div className="bg-purple-900/50 rounded-2xl p-6 border border-purple-600/30 mb-6">
                 <p className="text-gray-400 text-sm mb-2">Platform Deposit Wallet (BSC)</p>
@@ -733,9 +942,9 @@ export default function Home() {
               <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-6">
                 <h4 className="text-green-400 font-semibold mb-2">📋 Instructions:</h4>
                 <ol className="text-gray-300 text-sm space-y-2 list-decimal list-inside">
+                  <li>Select a package above</li>
                   <li>Copy the platform wallet address</li>
-                  <li>Send SHIB from your BSC wallet</li>
-                  <li>Minimum: <span className="text-yellow-400 font-bold">100,000 SHIB</span></li>
+                  <li>Send <span className="text-yellow-400 font-bold">{formatNumber(selectedPackage.deposit, 0)} SHIB</span> (or more) from your BSC wallet</li>
                   <li>Enter transaction hash below</li>
                 </ol>
               </div>
@@ -763,7 +972,10 @@ export default function Home() {
                     spellCheck="false"
                     className="w-full px-4 py-3 rounded-xl bg-purple-950/50 border border-purple-600/50 text-white font-mono text-sm focus:outline-none focus:border-yellow-500/50" />
                 </div>
-                <button type="button" onClick={handleDep} className="w-full py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-400 hover:to-emerald-400 transition-all">Submit Deposit</button>
+                <button type="button" onClick={handleDep} disabled={submitting}
+                  className={`w-full py-4 rounded-xl font-bold text-lg transition-all ${submitting ? 'bg-gray-600 cursor-not-allowed' : 'bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-400 hover:to-emerald-400'}`}>
+                  {submitting ? 'Processing...' : 'Submit Deposit'}
+                </button>
               </div>
             </div>
           </div>
@@ -777,7 +989,7 @@ export default function Home() {
               
               <div className="bg-purple-900/50 rounded-2xl p-6 border border-purple-600/30 mb-6 text-center">
                 <p className="text-gray-400 text-sm mb-2">Available Balance</p>
-                <p className="text-5xl font-bold text-yellow-400 font-mono">{formatExact(balance)}</p>
+                <p className="text-5xl font-bold text-yellow-400 font-mono">{formatExact(userData?.balance || 0)}</p>
                 <p className="text-yellow-400 text-lg mt-1">SHIB</p>
                 <p className="text-gray-500 text-sm mt-2">Minimum: 50,000 SHIB</p>
               </div>

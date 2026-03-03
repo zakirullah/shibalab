@@ -149,3 +149,6 @@ Current format starts with: file:/home/z/my-proj...
  GET / 200 in 1113ms (compile: 970ms, render: 143ms)
 ⚠ Cross origin request detected from preview-chat-cd2eabf2-2d5b-41f5-a775-9c52157128ec.space.z.ai to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
 Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET / 200 in 50ms (compile: 4ms, render: 46ms)
+✓ Compiled in 217ms
+✓ Compiled in 264ms
