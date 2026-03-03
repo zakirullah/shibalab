@@ -1,32 +1,76 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// ShibaLab Mining Platform Database Schema
+// PostgreSQL for Vercel deployment
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String   @id @default(cuid())
+  wallet          String   @unique
+  balance         Float    @default(0)
+  totalInvested   Float    @default(0)
+  totalEarned     Float    @default(0)
+  referredBy      String?
+  referralCode    String   @unique
+  referralEarnings Float   @default(0)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  deposits        Deposit[]
+  withdrawals     Withdrawal[]
+  transactions    Transaction[]
 }
 
-model Post {
+model Deposit {
+  id              String   @id @default(cuid())
+  userId          String
+  amount          Float
+  transactionHash String   @unique
+  packageId       Int
+  status          String   @default("pending")
+  confirmedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Withdrawal {
+  id              String   @id @default(cuid())
+  userId          String
+  amount          Float
+  walletAddress   String
+  status          String   @default("pending")
+  processedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Transaction {
   id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
+  userId    String
+  type      String
+  amount    Float
+  status    String   @default("completed")
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PlatformStats {
+  id                String   @id @default("stats")
+  totalUsers        Int      @default(0)
+  totalInvested     Float    @default(0)
+  totalWithdrawn    Float    @default(0)
+  onlineUsers       Int      @default(0)
+  updatedAt         DateTime @updatedAt
 }
