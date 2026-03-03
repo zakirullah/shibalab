@@ -395,3 +395,245 @@ Validation Error Count: 1
   retryable: undefined
 }
  GET /api/stats 200 in 134ms (compile: 3ms, render: 131ms)
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET / 200 in 65ms (compile: 35ms, render: 30ms)
+ GET / 200 in 23ms (compile: 3ms, render: 21ms)
+ GET / 200 in 14ms (compile: 3ms, render: 11ms)
+ GET / 200 in 13ms (compile: 1990µs, render: 11ms)
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET / 200 in 12ms (compile: 1838µs, render: 11ms)
+ GET / 200 in 13ms (compile: 1716µs, render: 11ms)
+ GET / 200 in 15ms (compile: 1998µs, render: 13ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 13ms (compile: 1825µs, render: 11ms)
+ GET / 200 in 16ms (compile: 2ms, render: 13ms)
+ GET / 200 in 12ms (compile: 1983µs, render: 10ms)
+ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+ GET / 200 in 16ms (compile: 1885µs, render: 14ms)
+ GET / 200 in 12ms (compile: 1832µs, render: 11ms)
+ GET / 200 in 11ms (compile: 1813µs, render: 9ms)
+ GET / 200 in 12ms (compile: 1950µs, render: 10ms)
+ GET / 200 in 13ms (compile: 1852µs, render: 11ms)
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET / 200 in 57ms (compile: 34ms, render: 23ms)
+ GET / 200 in 23ms (compile: 2ms, render: 21ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 16ms (compile: 3ms, render: 13ms)
+ GET / 200 in 14ms (compile: 1774µs, render: 12ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+ GET / 200 in 12ms (compile: 1821µs, render: 10ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET / 200 in 12ms (compile: 1891µs, render: 10ms)
+ GET / 200 in 11ms (compile: 1743µs, render: 10ms)
+ GET / 200 in 22ms (compile: 1928µs, render: 20ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 12ms (compile: 1955µs, render: 11ms)
+ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+ GET / 200 in 13ms (compile: 1980µs, render: 11ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 13ms (compile: 1957µs, render: 11ms)
+✓ Compiled in 211ms
+Invalid DATABASE_URL format. Must start with postgresql:// or postgres://
+Current URL starts with: file:/home/z/my-project/db/cus...
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 207ms (compile: 33ms, render: 173ms)
+Visitor tracking error: TypeError: Cannot read properties of undefined (reading 'findUnique')
+    at POST (src/app/api/visitor/route.ts:15:50)
+  13 |
+  14 |     // Check if visitor exists
+> 15 |     const existingVisitor = await prisma.visitor.findUnique({
+     |                                                  ^
+  16 |       where: { sessionId }
+  17 |     })
+  18 |
+ POST /api/visitor 500 in 313ms (compile: 237ms, render: 76ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent deposits
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent deposits
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent deposits
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       take: limit,
+  12 |       orderBy: { createdAt: 'desc' },
+  13 |       include: { {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 200ms (compile: 90ms, render: 110ms)
+✓ Compiled in 158ms
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Stats API Error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__b6e73bb1._.js:97:169
+
+  94 try {
+  95     // Count users active in last 5 minutes
+  96     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+→ 97     const onlineUsers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].user.count(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/stats/route.ts:9:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/stats/route.ts:9:25)
+   7 |     // Count users active in last 5 minutes
+   8 |     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
+>  9 |     const onlineUsers = await prisma.user.count({
+     |                                           ^
+  10 |       where: {
+  11 |         lastActiveAt: { gte: fiveMinutesAgo }
+  12 |       } {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/stats 200 in 129ms (compile: 3ms, render: 127ms)
+prisma:error 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent deposits
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+Live transactions error: Error [PrismaClientInitializationError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany()` invocation in
+/home/z/my-project/.next/dev/server/chunks/[root-of-the-server]__7fd8d373._.js:97:169
+
+  94 try {
+  95     const limit = parseInt(request.nextUrl.searchParams.get('limit') || '20');
+  96     // Get recent deposits
+→ 97     const deposits = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].deposit.findMany(
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider  = "postgresql"
+10 |   url       = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at <unknown> (src/app/api/live/route.ts:10:43)
+    at <unknown> (-->  schema.prisma:10)
+    at async GET (src/app/api/live/route.ts:10:22)
+   8 |
+   9 |     // Get recent deposits
+> 10 |     const deposits = await prisma.deposit.findMany({
+     |                                           ^
+  11 |       take: limit,
+  12 |       orderBy: { createdAt: 'desc' },
+  13 |       include: { {
+  clientVersion: '6.19.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /api/live?limit=20 500 in 109ms (compile: 1719µs, render: 107ms)

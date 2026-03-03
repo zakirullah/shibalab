@@ -198,7 +198,7 @@ export default function Home() {
   const [depTx, setDepTx] = useState('')
   const [withAmount, setWithAmount] = useState('')
   const [withAddr, setWithAddr] = useState('')
-  const [txs, setTxs] = useState(() => Array(8).fill(null).map(() => genTx(Math.random() > 0.3 ? 'deposit' : 'withdraw')))
+  const [txs, setTxs] = useState<any[]>([])
   const [stats, setStats] = useState(getDefaultStats)
   const [statsVisible, setStatsVisible] = useState(false)
   const [showRefBanner, setShowRefBanner] = useState(() => {
@@ -209,6 +209,7 @@ export default function Home() {
     return false
   })
   const [submitting, setSubmitting] = useState(false)
+  const [visitorTracked, setVisitorTracked] = useState(false)
   const statsRef = useRef<HTMLDivElement>(null)
   
   // Animated counters
@@ -217,10 +218,34 @@ export default function Home() {
   const animWith = useCount(Math.floor(stats.totalWithdrawals / 1000000), 3000, statsVisible)
   const animOnline = useCount(stats.online, 2000, statsVisible)
 
+  // Track visitor on page load
+  const trackVisitor = async () => {
+    if (visitorTracked) return
+    try {
+      // Generate or get session ID
+      let sessionId = sessionStorage.getItem('shibalab_session')
+      if (!sessionId) {
+        sessionId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+        sessionStorage.setItem('shibalab_session', sessionId)
+      }
+      
+      await fetch('/api/visitor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId })
+      })
+      setVisitorTracked(true)
+    } catch (err) {
+      console.error('Failed to track visitor:', err)
+    }
+  }
+
   // Effects
   useEffect(() => {
-    // Fetch platform stats on page load
+    // Track visitor and fetch stats on page load
+    trackVisitor()
     fetchStats()
+    fetchLiveTransactions()
   }, [])
 
   useEffect(() => {
@@ -229,13 +254,17 @@ export default function Home() {
     return () => obs.disconnect()
   }, [])
 
+  // Fetch live transactions periodically
   useEffect(() => {
-    const int = setInterval(() => setTxs(p => [genTx(Math.random() > 0.35 ? 'deposit' : 'withdraw'), ...p.slice(0, 19)]), 5000)
+    const int = setInterval(() => {
+      fetchLiveTransactions()
+    }, 30000)
     return () => clearInterval(int)
   }, [])
 
+  // Refresh stats periodically
   useEffect(() => {
-    const int = setInterval(() => setStats(p => ({ ...p, online: 2847 + Math.floor(Math.random() * 200) })), 30000)
+    const int = setInterval(() => fetchStats(), 60000)
     return () => clearInterval(int)
   }, [])
 
@@ -267,6 +296,19 @@ export default function Home() {
       }
     } catch (err) {
       console.error('Failed to fetch stats:', err)
+    }
+  }
+
+  // Fetch live transactions
+  const fetchLiveTransactions = async () => {
+    try {
+      const res = await fetch('/api/live?limit=20')
+      const data = await res.json()
+      if (data.success) {
+        setTxs(data.transactions)
+      }
+    } catch (err) {
+      console.error('Failed to fetch transactions:', err)
     }
   }
 
@@ -661,22 +703,29 @@ export default function Home() {
                 </div>
               </div>
               <div className="max-h-[400px] overflow-y-auto">
-                {txs.filter(t => t.type === tab).slice(0, 10).map((t, i) => (
-                  <div key={t.id} className={`px-6 py-4 border-b border-purple-700/30 hover:bg-purple-700/20 transition-all ${i === 0 ? 'bg-purple-700/10' : ''}`}>
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <span className={`w-2 h-2 rounded-full ${t.type === 'deposit' ? 'bg-green-500' : 'bg-red-500'}`}></span>
-                        <span className="text-white font-medium">{t.name}</span>
-                        {i === 0 && <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400">New</span>}
-                      </div>
-                      <span className="text-white font-bold">{t.display}</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <p className="text-gray-400 text-xs font-mono truncate max-w-[200px]">{t.wallet.slice(0, 10)}...{t.wallet.slice(-6)}</p>
-                      <span className="text-gray-500 text-xs">{t.time}</span>
-                    </div>
+                {txs.filter(t => t.type === tab).length === 0 ? (
+                  <div className="px-6 py-12 text-center">
+                    <p className="text-gray-400">No {tab === 'deposit' ? 'deposits' : 'withdrawals'} yet</p>
+                    <p className="text-gray-500 text-sm mt-2">Be the first to {tab === 'deposit' ? 'invest' : 'withdraw'}!</p>
                   </div>
-                ))}
+                ) : (
+                  txs.filter(t => t.type === tab).slice(0, 10).map((t, i) => (
+                    <div key={t.id} className={`px-6 py-4 border-b border-purple-700/30 hover:bg-purple-700/20 transition-all ${i === 0 ? 'bg-purple-700/10' : ''}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <span className={`w-2 h-2 rounded-full ${t.type === 'deposit' ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                          <span className="text-white font-medium">{t.type === 'deposit' ? 'Deposit' : 'Withdrawal'}</span>
+                          {i === 0 && <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400">New</span>}
+                        </div>
+                        <span className="text-white font-bold">{formatNumber(t.amount)} SHIB</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <p className="text-gray-400 text-xs font-mono truncate max-w-[200px]">{t.displayWallet}</p>
+                        <span className="text-gray-500 text-xs">{new Date(t.createdAt).toLocaleTimeString()}</span>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>

@@ -21,6 +21,7 @@ model User {
   referralCode    String   @unique
   referralEarnings Float   @default(0)
   isActive        Boolean  @default(true)
+  lastActiveAt    DateTime @default(now())
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
@@ -91,5 +92,20 @@ model PlatformStats {
   totalInvested     Float    @default(0)
   totalWithdrawn    Float    @default(0)
   onlineUsers       Int      @default(0)
+  totalVisitors     Int      @default(0)
+  todayVisitors     Int      @default(0)
   updatedAt         DateTime @updatedAt
+}
+
+model Visitor {
+  id           String   @id @default(cuid())
+  sessionId    String   @unique
+  ipAddress    String?
+  userAgent    String?
+  country      String?
+  firstVisit   DateTime @default(now())
+  lastVisit    DateTime @default(now())
+  visitCount   Int      @default(1)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }

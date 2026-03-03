@@ -37,6 +37,7 @@ export async function GET(request: NextRequest) {
           totalInvested: 0,
           totalEarned: 0,
           referralEarnings: 0,
+          lastActiveAt: new Date(),
         },
         include: {
           activePackage: true,
@@ -51,6 +52,12 @@ export async function GET(request: NextRequest) {
         where: { id: 'stats' },
         update: { totalUsers: { increment: 1 } },
         create: { id: 'stats', totalUsers: 1 }
+      })
+    } else {
+      // Update last active time
+      await prisma.user.update({
+        where: { wallet },
+        data: { lastActiveAt: new Date() }
       })
     }
 
@@ -86,6 +93,11 @@ export async function POST(request: NextRequest) {
     let user = await prisma.user.findUnique({ where: { wallet } })
 
     if (user) {
+      // Update last active time
+      await prisma.user.update({
+        where: { wallet },
+        data: { lastActiveAt: new Date() }
+      })
       return NextResponse.json({ success: true, user, isNew: false })
     }
 
@@ -96,6 +108,7 @@ export async function POST(request: NextRequest) {
         wallet,
         referralCode,
         referredBy: referrer || null,
+        lastActiveAt: new Date(),
       }
     })
 
