@@ -1,0 +1,144 @@
+// This is your Prisma schema file for PRODUCTION (PostgreSQL)
+// Used with Vercel Postgres, Neon, or Supabase
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// Wallet-based User Model (No Email Required)
+model User {
+  id            String   @id @default(cuid())
+  walletAddress String   @unique
+  balance       Float    @default(0)
+  totalDeposited Float   @default(0)
+  totalWithdrawn Float   @default(0)
+  totalProfit    Float   @default(0)
+  referralCode  String?  @unique
+  referredBy    String?
+  status        String   @default("active") // active, suspended, banned
+  lastLoginAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  deposits      Deposit[]
+  withdrawals   Withdrawal[]
+  transactions  Transaction[]
+  chatMessages  ChatMessage[]
+}
+
+// Mining Package Model
+model MiningPackage {
+  id          String   @id @default(cuid())
+  name        String
+  deposit     Float
+  totalReturn Float
+  profit      Float
+  dh_s        Float    // Mining speed
+  duration    Int      @default(30) // days
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  
+  deposits    Deposit[]
+}
+
+// User Deposits
+model Deposit {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  packageId     String?
+  package       MiningPackage? @relation(fields: [packageId], references: [id])
+  amount        Float
+  txHash        String?  // Transaction hash
+  status        String   @default("pending") // pending, confirmed, rejected
+  startedAt     DateTime?
+  endsAt        DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  transactions  Transaction[]
+}
+
+// Withdrawal Requests (Manual Approval)
+model Withdrawal {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount        Float
+  walletAddress String   // Must match user's connected wallet
+  txHash        String?  // Admin adds after sending
+  status        String   @default("pending") // pending, approved, rejected, sent
+  approvedBy    String?  // Admin wallet or ID
+  approvedAt    DateTime?
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  transactions  Transaction[]
+}
+
+// Transaction History
+model Transaction {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type          String   // deposit, withdrawal, profit, referral_bonus, mining_reward
+  amount        Float
+  status        String   @default("completed")
+  depositId     String?
+  deposit       Deposit? @relation(fields: [depositId], references: [id])
+  withdrawalId  String?
+  withdrawal    Withdrawal? @relation(fields: [withdrawalId], references: [id])
+  description   String?
+  txHash        String?
+  createdAt     DateTime @default(now())
+}
+
+// Admin Model for Panel Access
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String   // Hashed password
+  role      String   @default("admin") // admin, super_admin
+  active    Boolean  @default(true)
+  lastLogin DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Platform Settings
+model PlatformSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt
+}
+
+// Chat Messages for Support
+model ChatMessage {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message   String
+  sender    String   // user, admin, ai
+  isAdmin    Boolean  @default(false)
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// Platform Stats (Cached)
+model PlatformStats {
+  id                String   @id @default(cuid())
+  totalUsers        Int      @default(0)
+  totalInvestment   Float    @default(0)
+  totalWithdrawals  Float    @default(0)
+  activeDeposits    Int      @default(0)
+  lastUpdated       DateTime @updatedAt
+}

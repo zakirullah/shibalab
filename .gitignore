@@ -1,0 +1,66 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Next.js
+.next/
+out/
+
+# Production
+build/
+dist/
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Database
+*.db
+db/
+
+# Logs
+*.log
+dev.log
+server.log
+
+# Upload folder (keep structure but ignore content for production)
+upload/*
+!upload/.gitkeep
+
+# Download folder
+download/
+
+# Skills folder (not needed for production)
+skills/
+
+# Examples
+examples/
+
+# Zip files
+*.zip
+
+# Lock files (regenerated)
+bun.lock
