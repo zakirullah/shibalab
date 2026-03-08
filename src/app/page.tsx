@@ -1052,7 +1052,7 @@ export default function Home() {
                   {/* Main Image Container */}
                   <div className="relative overflow-hidden rounded-3xl border-2 border-amber-500/30 shadow-2xl shadow-amber-500/20">
                     <img
-                      src="/upload/03.png"
+                      src="/03.png"
                       alt="About ShibaLab Mining"
                       className="w-full h-80 md:h-96 object-cover group-hover:scale-105 transition-transform duration-700"
                     />
@@ -1343,7 +1343,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-cyan-500/30 hover:border-cyan-500/60 transition-all duration-500 shadow-2xl shadow-cyan-500/20">
                     <img
-                      src="/upload/01.png"
+                      src="/01.png"
                       alt="Step 1 - Register"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1376,7 +1376,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-amber-500/30 hover:border-amber-500/60 transition-all duration-500 shadow-2xl shadow-amber-500/20">
                     <img
-                      src="/upload/02.png"
+                      src="/02.png"
                       alt="Step 2 - Choose Package"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1409,7 +1409,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-green-500/30 hover:border-green-500/60 transition-all duration-500 shadow-2xl shadow-green-500/20">
                     <img
-                      src="/upload/04.png"
+                      src="/04.png"
                       alt="Step 3 - Deposit"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1442,7 +1442,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-purple-500/30 hover:border-purple-500/60 transition-all duration-500 shadow-2xl shadow-purple-500/20">
                     <img
-                      src="/upload/05.png"
+                      src="/05.png"
                       alt="Step 4 - Start Mining"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1475,7 +1475,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-yellow-500/30 hover:border-yellow-500/60 transition-all duration-500 shadow-2xl shadow-yellow-500/20">
                     <img
-                      src="/upload/06.png"
+                      src="/06.png"
                       alt="Step 5 - Withdraw"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
