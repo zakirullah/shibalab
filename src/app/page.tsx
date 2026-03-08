@@ -835,99 +835,104 @@ export default function Home() {
   // INITIAL LOADING SCREEN
   if (initialLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-slate-900 to-gray-950 text-white flex flex-col items-center justify-center relative overflow-hidden">
-        {/* Animated Background Grid */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px'
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white flex flex-col items-center justify-center relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 opacity-10" style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(251, 191, 36, 0.3) 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
           }}></div>
+          
+          {/* Glowing Orbs */}
+          <div className="absolute top-20 left-20 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-amber-500/10 to-blue-500/10 rounded-full blur-3xl"></div>
         </div>
         
-        {/* Glowing Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-cyan-500/30 rounded-full blur-[100px] animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-purple-500/30 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full blur-[120px]"></div>
-        
         {/* Main Content */}
-        <div className="relative z-10 text-center px-4 py-8">
-          {/* Animated Logo Container */}
-          <div className="mb-10">
-            <div className="relative">
-              {/* Rotating Ring */}
-              <div className="absolute inset-0 w-40 h-40 md:w-48 md:h-48 mx-auto">
-                <div className="absolute inset-0 rounded-full border-2 border-dashed border-cyan-400/50 animate-spin" style={{ animationDuration: '10s' }}></div>
-                <div className="absolute inset-2 rounded-full border border-purple-400/30 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
-              </div>
+        <div className="relative z-10 text-center px-4 py-8 max-w-4xl">
+          {/* Logo */}
+          <div className="mb-8">
+            <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto">
+              {/* Animated Rings */}
+              <div className="absolute inset-0 rounded-full border-2 border-dashed border-amber-400/40 animate-spin" style={{ animationDuration: '8s' }}></div>
+              <div className="absolute inset-2 rounded-full border border-blue-400/30 animate-spin" style={{ animationDuration: '12s', animationDirection: 'reverse' }}></div>
               
               {/* Logo Box */}
-              <div className="relative w-40 h-40 md:w-48 md:h-48 mx-auto bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-6xl md:text-7xl shadow-2xl shadow-cyan-500/40 transform hover:scale-105 transition-transform duration-300">
-                <span className="animate-bounce">⛏️</span>
+              <div className="absolute inset-4 bg-gradient-to-br from-amber-400 via-blue-500 to-amber-500 rounded-2xl flex items-center justify-center text-5xl md:text-6xl shadow-2xl shadow-amber-500/30 animate-pulse">
+                ⛏️
               </div>
             </div>
           </div>
           
           {/* Brand Name */}
-          <h1 className="text-5xl md:text-7xl font-black mb-2 tracking-tight">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">ShibaLab</span>
+          <h1 className="text-5xl md:text-7xl font-black mb-2">
+            <span className="bg-gradient-to-r from-amber-400 via-blue-400 to-amber-400 bg-clip-text text-transparent">ShibaLab</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 mb-8 font-light tracking-wider">MINING PLATFORM</p>
+          <p className="text-xl md:text-2xl text-gray-400 mb-8 tracking-widest font-light">MINING PLATFORM</p>
           
-          {/* Professional Progress Bar */}
-          <div className="w-80 md:w-96 mx-auto mb-8">
-            <div className="relative h-2 bg-gray-800/50 rounded-full overflow-hidden border border-gray-700/50">
+          {/* Progress Bar */}
+          <div className="w-80 md:w-96 mx-auto mb-10">
+            <div className="relative h-3 bg-slate-800/80 rounded-full overflow-hidden border border-slate-700">
               <div 
-                className="absolute h-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-full transition-all duration-300"
+                className="absolute h-full bg-gradient-to-r from-amber-500 via-blue-500 to-amber-500 rounded-full transition-all duration-300"
                 style={{ width: `${Math.min(loadingProgress, 100)}%` }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-pulse"></div>
               </div>
             </div>
-            <div className="flex justify-between mt-3 text-xs">
-              <span className="text-gray-500">Initializing...</span>
-              <span className="text-cyan-400 font-mono font-bold">{Math.round(Math.min(loadingProgress, 100))}%</span>
+            <div className="flex justify-between mt-2 text-xs">
+              <span className="text-gray-500">Loading...</span>
+              <span className="text-amber-400 font-mono font-bold">{Math.round(Math.min(loadingProgress, 100))}%</span>
             </div>
           </div>
           
-          {/* Package Cards - Compact Design */}
-          <div className="mt-8 max-w-5xl mx-auto">
-            <h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-300 flex items-center justify-center gap-2">
+          {/* Package Cards */}
+          <div className="mb-8">
+            <h2 className="text-lg font-semibold mb-4 text-gray-300 flex items-center justify-center gap-2">
               <span>📦</span>
-              <span>Investment Packages</span>
+              <span>Investment Packages - 130% ROI</span>
             </h2>
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
               {miningPackages.map((pkg, i) => (
                 <div 
                   key={i}
-                  className={`relative p-3 md:p-4 rounded-xl ${pkg.bgColor} border ${pkg.borderColor} transition-all duration-300 hover:scale-105 cursor-pointer`}
-                  style={{ animationDelay: `${i * 0.1}s` }}
+                  className={`relative p-3 rounded-xl ${pkg.bgColor} border ${pkg.borderColor} transition-all duration-300 hover:scale-105 cursor-pointer shadow-lg`}
                 >
-                  <div className="text-2xl md:text-3xl mb-2">{pkg.icon}</div>
-                  <div className="text-xs md:text-sm font-bold text-white">{pkg.name}</div>
-                  <div className="text-[10px] md:text-xs text-white/70 mt-1">{formatNumber(pkg.deposit, 0)} SHIB</div>
-                  <div className="text-[10px] text-green-300 mt-0.5">+{pkg.profit >= 1000000 ? `${pkg.profit/1000000}M` : `${pkg.profit/1000}K`}</div>
+                  <div className="text-2xl mb-1">{pkg.icon}</div>
+                  <div className="text-sm font-bold text-white">{pkg.name}</div>
+                  <div className="text-xs text-white/80">{formatNumber(pkg.deposit, 0)}</div>
                 </div>
               ))}
             </div>
           </div>
           
           {/* Trust Badges */}
-          <div className="mt-10 flex justify-center gap-4 md:gap-6 flex-wrap">
+          <div className="flex justify-center gap-4 flex-wrap">
             {[
               { icon: '🔒', text: 'Secure', color: 'text-green-400' },
               { icon: '⚡', text: 'Fast', color: 'text-yellow-400' },
-              { icon: '🌐', text: 'BSC', color: 'text-blue-400' },
-              { icon: '💎', text: '130% ROI', color: 'text-purple-400' }
+              { icon: '🌐', text: 'BSC Network', color: 'text-blue-400' },
+              { icon: '💰', text: '130% ROI', color: 'text-amber-400' }
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 rounded-lg border border-gray-700/50 backdrop-blur-sm">
-                <span className="text-lg">{item.icon}</span>
+              <div key={i} className="flex items-center gap-2 px-4 py-2 bg-slate-800/60 rounded-full border border-slate-700/50 backdrop-blur-sm">
+                <span>{item.icon}</span>
                 <span className={`text-sm font-medium ${item.color}`}>{item.text}</span>
               </div>
             ))}
           </div>
-          
-          {/* ROI Banner */}
+        </div>
+        
+        {/* Shiba Mascot */}
+        <img 
+          src="/shiba-mascot.png" 
+          alt="Shiba"
+          className="absolute bottom-4 right-4 w-24 h-24 object-contain opacity-30 animate-bounce"
+        />
+      </div>
+    )
+  }
           <div className="mt-8 inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-xl font-bold text-lg text-white shadow-lg shadow-blue-500/30">
             <span className="text-2xl animate-pulse">💰</span>
             <span>130% ROI in 30 Days</span>
