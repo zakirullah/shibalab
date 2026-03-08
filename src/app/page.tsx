@@ -1343,7 +1343,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-cyan-500/30 hover:border-cyan-500/60 transition-all duration-500 shadow-2xl shadow-cyan-500/20">
                     <img
-                      src="/01.png"
+                      src="/step1-register.jpg"
                       alt="Step 1 - Register"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1376,7 +1376,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-amber-500/30 hover:border-amber-500/60 transition-all duration-500 shadow-2xl shadow-amber-500/20">
                     <img
-                      src="/02.png"
+                      src="/step2-package.jpg"
                       alt="Step 2 - Choose Package"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1409,7 +1409,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-green-500/30 hover:border-green-500/60 transition-all duration-500 shadow-2xl shadow-green-500/20">
                     <img
-                      src="/04.png"
+                      src="/step3-deposit.jpg"
                       alt="Step 3 - Deposit"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1442,7 +1442,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-purple-500/30 hover:border-purple-500/60 transition-all duration-500 shadow-2xl shadow-purple-500/20">
                     <img
-                      src="/05.png"
+                      src="/step4-mining.jpg"
                       alt="Step 4 - Start Mining"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1475,7 +1475,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-yellow-500/30 hover:border-yellow-500/60 transition-all duration-500 shadow-2xl shadow-yellow-500/20">
                     <img
-                      src="/06.png"
+                      src="/step5-withdraw.jpg"
                       alt="Step 5 - Withdraw"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
