@@ -940,8 +940,8 @@ export default function Home() {
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white overflow-x-hidden">
         <CryptoParticles />
         
-        {/* Live Activity Ticker - Simple Left Corner */}
-        <div className="fixed left-4 top-1/2 -translate-y-1/2 z-40 hidden lg:block">
+        {/* Live Activity Ticker - Bottom Left Corner */}
+        <div className="fixed left-4 bottom-4 z-40 hidden lg:block">
           <div className={`transition-all duration-500 ${showActivity ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="flex items-center gap-3 py-2">
               <span className="text-2xl">{liveActivities[currentActivity].icon}</span>
@@ -1847,7 +1847,7 @@ export default function Home() {
               <div className="relative group overflow-hidden rounded-2xl border border-white/10 hover:border-green-500/50 transition-all duration-500">
                 <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <img 
-                  src="/05.png" 
+                  src="/community-mining.jpg" 
                   alt="Community Member 1"
                   className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
@@ -1864,7 +1864,7 @@ export default function Home() {
               <div className="relative group overflow-hidden rounded-2xl border border-white/10 hover:border-amber-500/50 transition-all duration-500">
                 <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <img 
-                  src="/06.png" 
+                  src="/community-handshake.jpg" 
                   alt="Community Member 2"
                   className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
@@ -1881,7 +1881,7 @@ export default function Home() {
               <div className="relative group overflow-hidden rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-500">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <img 
-                  src="/07.png" 
+                  src="/community-event.jpg" 
                   alt="Community Member 3"
                   className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
