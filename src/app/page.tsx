@@ -7,14 +7,14 @@ const PLATFORM_WALLET = '0x33cb374635ab51fc669c1849b21b589a17475fc3'
 const SUPPORT_EMAIL = 'Shibalab.mining@gmail.com'
 const WEBSITE_LAUNCH_DATE = '7 March 2026'
 
-// Mining Packages - 130% ROI - Different Light/Hard Colors
+// Mining Packages - 130% ROI - Vibrant Clear Colors
 const miningPackages = [
-  { id: 1, name: 'Starter', deposit: 100000, totalReturn: 130000, profit: 30000, daily: 1000, lightColor: 'bg-sky-100 border-sky-300', hardColor: 'from-sky-400 to-sky-600', textColor: 'text-sky-600', icon: '💎', image: '/shiba-coin.png' },
-  { id: 2, name: 'Bronze', deposit: 250000, totalReturn: 325000, profit: 75000, daily: 2500, lightColor: 'bg-orange-100 border-orange-300', hardColor: 'from-orange-400 to-orange-600', textColor: 'text-orange-600', icon: '🥉', image: '/shiba-mascot.png' },
-  { id: 3, name: 'Silver', deposit: 500000, totalReturn: 650000, profit: 150000, daily: 5000, lightColor: 'bg-slate-100 border-slate-300', hardColor: 'from-slate-400 to-slate-600', textColor: 'text-slate-600', icon: '🥈', image: '/shiba-coin.png' },
-  { id: 4, name: 'Gold', deposit: 1000000, totalReturn: 1300000, profit: 300000, daily: 10000, lightColor: 'bg-yellow-100 border-yellow-400', hardColor: 'from-yellow-400 to-amber-600', textColor: 'text-yellow-600', icon: '🥇', popular: true, image: '/shiba-mascot.png' },
-  { id: 5, name: 'Platinum', deposit: 2500000, totalReturn: 3250000, profit: 750000, daily: 25000, lightColor: 'bg-teal-100 border-teal-300', hardColor: 'from-teal-400 to-teal-600', textColor: 'text-teal-600', icon: '💠', image: '/shiba-coin.png' },
-  { id: 6, name: 'Diamond', deposit: 5000000, totalReturn: 6500000, profit: 1500000, daily: 50000, lightColor: 'bg-purple-100 border-purple-300', hardColor: 'from-purple-400 to-purple-600', textColor: 'text-purple-600', icon: '👑', image: '/shiba-mascot.png' },
+  { id: 1, name: 'Starter', deposit: 100000, totalReturn: 130000, profit: 30000, daily: 1000, bgColor: 'bg-gradient-to-br from-cyan-500 to-blue-600', borderColor: 'border-cyan-400', icon: '💎' },
+  { id: 2, name: 'Bronze', deposit: 250000, totalReturn: 325000, profit: 75000, daily: 2500, bgColor: 'bg-gradient-to-br from-orange-500 to-red-600', borderColor: 'border-orange-400', icon: '🥉' },
+  { id: 3, name: 'Silver', deposit: 500000, totalReturn: 650000, profit: 150000, daily: 5000, bgColor: 'bg-gradient-to-br from-gray-400 to-gray-600', borderColor: 'border-gray-300', icon: '🥈' },
+  { id: 4, name: 'Gold', deposit: 1000000, totalReturn: 1300000, profit: 300000, daily: 10000, bgColor: 'bg-gradient-to-br from-yellow-400 to-amber-600', borderColor: 'border-yellow-400', icon: '🥇', popular: true },
+  { id: 5, name: 'Platinum', deposit: 2500000, totalReturn: 3250000, profit: 750000, daily: 25000, bgColor: 'bg-gradient-to-br from-teal-400 to-cyan-600', borderColor: 'border-teal-400', icon: '💠' },
+  { id: 6, name: 'Diamond', deposit: 5000000, totalReturn: 6500000, profit: 1500000, daily: 50000, bgColor: 'bg-gradient-to-br from-purple-500 to-pink-600', borderColor: 'border-purple-400', icon: '👑' },
 ]
 
 // Owner Plans
@@ -876,23 +876,16 @@ export default function Home() {
               {miningPackages.map((pkg, i) => (
                 <div 
                   key={i}
-                  className={`relative p-4 md:p-6 rounded-2xl border-2 ${pkg.lightColor} transition-all duration-500 hover:scale-110 cursor-pointer animate-float`}
+                  className={`relative p-4 md:p-6 rounded-2xl border-2 ${pkg.borderColor} bg-slate-900/80 transition-all duration-500 hover:scale-110 cursor-pointer animate-float`}
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${pkg.hardColor} opacity-20 rounded-2xl`}></div>
-                  <div className="relative z-10">
-                    {/* Package Image */}
-                    <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-3">
-                      <img 
-                        src={pkg.image} 
-                        alt={pkg.name}
-                        className="w-full h-full object-contain drop-shadow-lg"
-                      />
-                    </div>
-                    <div className="text-3xl md:text-4xl mb-2">{pkg.icon}</div>
-                    <div className={`text-lg font-bold ${pkg.textColor}`}>{pkg.name}</div>
-                    <div className="text-sm text-gray-400 mt-1">{formatNumber(pkg.deposit, 0)} SHIB</div>
+                  <div className={`absolute inset-0 ${pkg.bgColor} opacity-20 rounded-2xl`}></div>
+                  <div className="relative z-10 text-center">
+                    <div className="text-4xl md:text-5xl mb-3">{pkg.icon}</div>
+                    <div className="text-lg font-bold text-white">{pkg.name}</div>
+                    <div className="text-sm text-amber-400 mt-1 font-bold">{formatNumber(pkg.deposit, 0)} SHIB</div>
                     <div className="text-xs text-green-400 mt-1">+{pkg.profit >= 1000000 ? `${pkg.profit/1000000}M` : `${pkg.profit/1000}K`} Profit</div>
+                    <div className="text-xs text-cyan-400 mt-1">130% ROI</div>
                   </div>
                 </div>
               ))}
@@ -1253,75 +1246,94 @@ export default function Home() {
         </section>
 
         {/* Mining Packages */}
-        <section className="py-20 relative">
-          <div className="max-w-7xl mx-auto px-4">
+        <section className="py-20 relative overflow-hidden">
+          {/* Background Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-cyan-500/10 rounded-full blur-3xl"></div>
+          
+          <div className="max-w-7xl mx-auto px-4 relative z-10">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-amber-400 to-blue-400 bg-clip-text text-transparent">📦 Mining Packages</h2>
-              <p className="text-gray-400">Choose your package and start earning 130% ROI</p>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                <span className="bg-gradient-to-r from-amber-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">📦 Mining Packages</span>
+              </h2>
+              <p className="text-gray-400 text-lg">Choose your plan and start earning <span className="text-green-400 font-bold">130% ROI</span> in 30 days</p>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {miningPackages.map((pkg) => (
-                <div key={pkg.id} className={`relative overflow-hidden rounded-2xl border-2 ${pkg.lightColor} transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${pkg.popular ? 'ring-2 ring-yellow-400 shadow-lg shadow-yellow-400/20' : ''}`}>
-                  {pkg.popular && (
-                    <div className="absolute -top-0 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-b-xl text-xs font-bold text-black z-10">
-                      ⭐ MOST POPULAR
-                    </div>
-                  )}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {miningPackages.map((pkg, index) => (
+                <div 
+                  key={pkg.id} 
+                  className={`relative group ${pkg.popular ? 'lg:-mt-4 lg:mb-4' : ''}`}
+                >
+                  {/* Card Glow Effect */}
+                  <div className={`absolute -inset-1 ${pkg.bgColor} rounded-3xl blur-lg opacity-30 group-hover:opacity-60 transition-opacity duration-500`}></div>
                   
-                  {/* Package Header with Hard Color */}
-                  <div className={`bg-gradient-to-r ${pkg.hardColor} p-4 text-white`}>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="text-3xl">{pkg.icon}</span>
-                        <div>
-                          <h3 className="text-xl font-bold">{pkg.name}</h3>
-                          <span className="text-xs opacity-80">Mining Plan</span>
+                  {/* Main Card */}
+                  <div className={`relative bg-slate-900/90 backdrop-blur-xl rounded-3xl border-2 ${pkg.borderColor} overflow-hidden transition-all duration-500 hover:scale-[1.02] ${pkg.popular ? 'ring-2 ring-yellow-400' : ''}`}>
+                    
+                    {pkg.popular && (
+                      <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-500 text-black text-center py-2 text-sm font-bold">
+                        ⭐ MOST POPULAR ⭐
+                      </div>
+                    )}
+                    
+                    {/* Header Section */}
+                    <div className={`${pkg.bgColor} p-6 ${pkg.popular ? 'pt-12' : ''}`}>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-4xl shadow-lg">
+                            {pkg.icon}
+                          </div>
+                          <div>
+                            <h3 className="text-2xl font-black text-white">{pkg.name}</h3>
+                            <span className="text-white/80 text-sm font-medium">Mining Plan</span>
+                          </div>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold">130%</div>
-                        <div className="text-xs opacity-80">ROI</div>
+                      
+                      {/* ROI Badge */}
+                      <div className="mt-4 inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl">
+                        <span className="text-3xl font-black text-white">130%</span>
+                        <span className="text-white/80 text-sm">ROI</span>
                       </div>
                     </div>
-                  </div>
-                  
-                  {/* Package Image */}
-                  <div className="relative h-32 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center">
-                    <img 
-                      src={pkg.image} 
-                      alt={`${pkg.name} Package`}
-                      className="w-20 h-20 object-contain drop-shadow-2xl hover:scale-110 transition-transform duration-300"
-                    />
-                    <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 bg-black/50 rounded-lg backdrop-blur-sm">
-                      <span className="text-xs">⛏️</span>
-                      <span className="text-xs font-bold text-amber-400">ShibaLab</span>
+                    
+                    {/* Investment Amount */}
+                    <div className="p-6 bg-slate-800/50">
+                      <div className="text-center mb-6">
+                        <span className="text-gray-400 text-sm">Investment Amount</span>
+                        <div className="text-3xl font-black text-white mt-1">{formatNumber(pkg.deposit, 0)}</div>
+                        <span className="text-amber-400 font-bold">SHIB</span>
+                      </div>
+                      
+                      {/* Details Grid */}
+                      <div className="grid grid-cols-2 gap-4 mb-6">
+                        <div className="bg-slate-700/50 rounded-xl p-4 text-center border border-white/5">
+                          <span className="text-gray-400 text-xs block mb-1">Total Return</span>
+                          <span className="text-green-400 font-bold text-lg">{formatNumber(pkg.totalReturn, 0)}</span>
+                        </div>
+                        <div className="bg-slate-700/50 rounded-xl p-4 text-center border border-white/5">
+                          <span className="text-gray-400 text-xs block mb-1">Net Profit</span>
+                          <span className="text-amber-400 font-bold text-lg">+{formatNumber(pkg.profit, 0)}</span>
+                        </div>
+                        <div className="bg-slate-700/50 rounded-xl p-4 text-center border border-white/5">
+                          <span className="text-gray-400 text-xs block mb-1">Daily Earn</span>
+                          <span className="text-cyan-400 font-bold text-lg">+{formatNumber(pkg.daily, 0)}</span>
+                        </div>
+                        <div className="bg-slate-700/50 rounded-xl p-4 text-center border border-white/5">
+                          <span className="text-gray-400 text-xs block mb-1">Duration</span>
+                          <span className="text-pink-400 font-bold text-lg">30 Days</span>
+                        </div>
+                      </div>
+                      
+                      {/* Invest Button */}
+                      <button 
+                        onClick={() => setView('auth')} 
+                        className={`w-full py-4 ${pkg.bgColor} rounded-2xl font-bold text-white text-lg shadow-lg hover:brightness-110 hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2`}
+                      >
+                        <span>💰</span>
+                        <span>Invest Now</span>
+                      </button>
                     </div>
-                  </div>
-                  
-                  {/* Package Details */}
-                  <div className="p-4 bg-slate-900/50">
-                    <div className="space-y-3">
-                      <div className="flex justify-between py-2 border-b border-white/10">
-                        <span className="text-gray-400">Investment</span>
-                        <span className="text-white font-bold">{formatNumber(pkg.deposit, 0)} SHIB</span>
-                      </div>
-                      <div className="flex justify-between py-2 border-b border-white/10">
-                        <span className="text-gray-400">Total Return</span>
-                        <span className={`${pkg.textColor} font-bold`}>{formatNumber(pkg.totalReturn, 0)} SHIB</span>
-                      </div>
-                      <div className="flex justify-between py-2 border-b border-white/10">
-                        <span className="text-gray-400">Profit</span>
-                        <span className="text-green-400 font-bold">+{formatNumber(pkg.profit, 0)} SHIB</span>
-                      </div>
-                      <div className="flex justify-between py-2">
-                        <span className="text-gray-400">Daily Earnings</span>
-                        <span className="text-blue-400 font-bold">+{formatNumber(pkg.daily, 0)}</span>
-                      </div>
-                    </div>
-                    <button onClick={() => setView('auth')} className={`w-full mt-4 py-3 bg-gradient-to-r ${pkg.hardColor} rounded-xl font-bold text-white hover:shadow-lg transition-all`}>
-                      Invest Now
-                    </button>
                   </div>
                 </div>
               ))}
