@@ -835,94 +835,109 @@ export default function Home() {
   // INITIAL LOADING SCREEN
   if (initialLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white flex flex-col items-center justify-center relative overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-amber-500/10 to-blue-500/10 rounded-full blur-3xl"></div>
+      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-slate-900 to-gray-950 text-white flex flex-col items-center justify-center relative overflow-hidden">
+        {/* Animated Background Grid */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)`,
+            backgroundSize: '50px 50px'
+          }}></div>
         </div>
+        
+        {/* Glowing Orbs */}
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-cyan-500/30 rounded-full blur-[100px] animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-purple-500/30 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full blur-[120px]"></div>
         
         {/* Main Content */}
         <div className="relative z-10 text-center px-4 py-8">
-          {/* ShibaLab Logo - BIG */}
-          <div className="mb-8">
-            <div className="w-40 h-40 md:w-52 md:h-52 mx-auto bg-gradient-to-br from-amber-400 via-blue-500 to-amber-500 rounded-3xl flex items-center justify-center text-7xl md:text-8xl shadow-2xl shadow-amber-500/50 animate-bounce">
-              ⛏️
+          {/* Animated Logo Container */}
+          <div className="mb-10">
+            <div className="relative">
+              {/* Rotating Ring */}
+              <div className="absolute inset-0 w-40 h-40 md:w-48 md:h-48 mx-auto">
+                <div className="absolute inset-0 rounded-full border-2 border-dashed border-cyan-400/50 animate-spin" style={{ animationDuration: '10s' }}></div>
+                <div className="absolute inset-2 rounded-full border border-purple-400/30 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
+              </div>
+              
+              {/* Logo Box */}
+              <div className="relative w-40 h-40 md:w-48 md:h-48 mx-auto bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-6xl md:text-7xl shadow-2xl shadow-cyan-500/40 transform hover:scale-105 transition-transform duration-300">
+                <span className="animate-bounce">⛏️</span>
+              </div>
             </div>
           </div>
           
-          {/* ShibaLab Name - BIG */}
-          <h1 className="text-5xl md:text-8xl font-black mb-3">
-            <span className="bg-gradient-to-r from-amber-400 via-blue-400 to-amber-400 bg-clip-text text-transparent">ShibaLab</span>
+          {/* Brand Name */}
+          <h1 className="text-5xl md:text-7xl font-black mb-2 tracking-tight">
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">ShibaLab</span>
           </h1>
-          <p className="text-2xl md:text-3xl text-gray-300 mb-8">Mining Platform</p>
+          <p className="text-xl md:text-2xl text-gray-400 mb-8 font-light tracking-wider">MINING PLATFORM</p>
           
-          {/* Loading Progress Bar */}
-          <div className="w-80 md:w-96 mx-auto mb-10">
-            <div className="h-3 bg-white/10 rounded-full overflow-hidden">
+          {/* Professional Progress Bar */}
+          <div className="w-80 md:w-96 mx-auto mb-8">
+            <div className="relative h-2 bg-gray-800/50 rounded-full overflow-hidden border border-gray-700/50">
               <div 
-                className="h-full bg-gradient-to-r from-amber-500 to-blue-500 rounded-full transition-all duration-300"
+                className="absolute h-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-full transition-all duration-300"
                 style={{ width: `${Math.min(loadingProgress, 100)}%` }}
-              ></div>
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
+              </div>
             </div>
-            <p className="text-gray-400 text-sm mt-3">{Math.round(Math.min(loadingProgress, 100))}% Loading...</p>
+            <div className="flex justify-between mt-3 text-xs">
+              <span className="text-gray-500">Initializing...</span>
+              <span className="text-cyan-400 font-mono font-bold">{Math.round(Math.min(loadingProgress, 100))}%</span>
+            </div>
           </div>
           
-          {/* Beautiful Package Introduction - BIG CARDS */}
-          <div className="mt-10 max-w-6xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">📦 Our Mining Packages</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+          {/* Package Cards - Compact Design */}
+          <div className="mt-8 max-w-5xl mx-auto">
+            <h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-300 flex items-center justify-center gap-2">
+              <span>📦</span>
+              <span>Investment Packages</span>
+            </h2>
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
               {miningPackages.map((pkg, i) => (
                 <div 
                   key={i}
-                  className={`relative p-4 md:p-6 rounded-2xl border-2 ${pkg.borderColor} bg-slate-900/80 transition-all duration-500 hover:scale-110 cursor-pointer animate-float`}
+                  className={`relative p-3 md:p-4 rounded-xl ${pkg.bgColor} border ${pkg.borderColor} transition-all duration-300 hover:scale-105 cursor-pointer`}
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
-                  <div className={`absolute inset-0 ${pkg.bgColor} opacity-20 rounded-2xl`}></div>
-                  <div className="relative z-10 text-center">
-                    <div className="text-4xl md:text-5xl mb-3">{pkg.icon}</div>
-                    <div className="text-lg font-bold text-white">{pkg.name}</div>
-                    <div className="text-sm text-amber-400 mt-1 font-bold">{formatNumber(pkg.deposit, 0)} SHIB</div>
-                    <div className="text-xs text-green-400 mt-1">+{pkg.profit >= 1000000 ? `${pkg.profit/1000000}M` : `${pkg.profit/1000}K`} Profit</div>
-                    <div className="text-xs text-cyan-400 mt-1">130% ROI</div>
-                  </div>
+                  <div className="text-2xl md:text-3xl mb-2">{pkg.icon}</div>
+                  <div className="text-xs md:text-sm font-bold text-white">{pkg.name}</div>
+                  <div className="text-[10px] md:text-xs text-white/70 mt-1">{formatNumber(pkg.deposit, 0)} SHIB</div>
+                  <div className="text-[10px] text-green-300 mt-0.5">+{pkg.profit >= 1000000 ? `${pkg.profit/1000000}M` : `${pkg.profit/1000}K`}</div>
                 </div>
               ))}
             </div>
           </div>
           
-          {/* Achievement Badges */}
-          <div className="mt-10 flex justify-center gap-3 md:gap-4 flex-wrap">
-            {achievements.map((a, i) => (
-              <div key={i} className="flex items-center gap-2 px-4 md:px-5 py-2 md:py-3 bg-gradient-to-r from-white/5 to-white/10 rounded-full text-sm border border-white/10">
-                <span className="text-lg">{a.icon}</span>
-                <span className="text-gray-300">{a.title}</span>
+          {/* Trust Badges */}
+          <div className="mt-10 flex justify-center gap-4 md:gap-6 flex-wrap">
+            {[
+              { icon: '🔒', text: 'Secure', color: 'text-green-400' },
+              { icon: '⚡', text: 'Fast', color: 'text-yellow-400' },
+              { icon: '🌐', text: 'BSC', color: 'text-blue-400' },
+              { icon: '💎', text: '130% ROI', color: 'text-purple-400' }
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 rounded-lg border border-gray-700/50 backdrop-blur-sm">
+                <span className="text-lg">{item.icon}</span>
+                <span className={`text-sm font-medium ${item.color}`}>{item.text}</span>
               </div>
             ))}
           </div>
           
-          {/* ROI Badge */}
-          <div className="mt-10 inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-amber-500 to-blue-500 rounded-full font-bold text-xl text-black shadow-lg">
-            <span className="text-2xl">💰</span>
+          {/* ROI Banner */}
+          <div className="mt-8 inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-xl font-bold text-lg text-white shadow-lg shadow-blue-500/30">
+            <span className="text-2xl animate-pulse">💰</span>
             <span>130% ROI in 30 Days</span>
-          </div>
-          
-          {/* Platform Info */}
-          <div className="mt-8 flex justify-center gap-6 flex-wrap text-sm text-gray-400">
-            <span className="flex items-center gap-2"><span className="text-amber-400">🔒</span> Secure Platform</span>
-            <span className="flex items-center gap-2"><span className="text-green-400">⚡</span> Instant Activation</span>
-            <span className="flex items-center gap-2"><span className="text-blue-400">🌐</span> BSC Network</span>
-            <span className="flex items-center gap-2"><span className="text-yellow-400">🇬🇧</span> UK Registered</span>
           </div>
         </div>
         
-        {/* Shiba Mascot */}
-        <img 
-          src="/shiba-mascot.png" 
-          alt="Shiba Mascot"
-          className="absolute bottom-4 right-4 md:bottom-10 md:right-10 w-20 h-20 md:w-32 md:h-32 object-contain opacity-50 animate-float"
-        />
+        {/* Corner Decoration */}
+        <div className="absolute bottom-4 right-4 text-gray-600 text-xs font-mono">
+          v1.0.0 | ShibaLab
+        </div>
       </div>
     )
   }
@@ -1355,7 +1370,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-cyan-500/30 hover:border-cyan-500/60 transition-all duration-500 shadow-2xl shadow-cyan-500/20">
                     <img
-                      src="/upload/01.png"
+                      src="/step1.jpg"
                       alt="Step 1 - Register"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1388,7 +1403,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-amber-500/30 hover:border-amber-500/60 transition-all duration-500 shadow-2xl shadow-amber-500/20">
                     <img
-                      src="/upload/02.png"
+                      src="/step2.jpg"
                       alt="Step 2 - Choose Package"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1421,7 +1436,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-green-500/30 hover:border-green-500/60 transition-all duration-500 shadow-2xl shadow-green-500/20">
                     <img
-                      src="/upload/04.png"
+                      src="/step3.jpg"
                       alt="Step 3 - Deposit"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1454,7 +1469,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-purple-500/30 hover:border-purple-500/60 transition-all duration-500 shadow-2xl shadow-purple-500/20">
                     <img
-                      src="/upload/05.png"
+                      src="/step4.jpg"
                       alt="Step 4 - Start Mining"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1487,7 +1502,7 @@ export default function Home() {
                 <div className="lg:w-1/2">
                   <div className="relative group overflow-hidden rounded-2xl border border-yellow-500/30 hover:border-yellow-500/60 transition-all duration-500 shadow-2xl shadow-yellow-500/20">
                     <img
-                      src="/upload/06.png"
+                      src="/step5.jpg"
                       alt="Step 5 - Withdraw"
                       className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1854,20 +1869,20 @@ export default function Home() {
               <p className="text-gray-400">Join our growing community of investors worldwide</p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {/* Investor Card 1 */}
               <div className="relative group overflow-hidden rounded-2xl border border-white/10 hover:border-green-500/50 transition-all duration-500">
                 <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <img 
-                  src="/05.png" 
-                  alt="Community Member 1"
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                  src="/community1.jpg" 
+                  alt="Mining Community"
+                  className="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">💎 Premium Investor</span>
+                    <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full font-medium">💎 Mining Community</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white">Active Community</h3>
+                  <h3 className="text-xl font-bold text-white">Active Miners</h3>
                   <p className="text-gray-400 text-sm">Thousands of active investors mining together</p>
                 </div>
               </div>
@@ -1876,32 +1891,15 @@ export default function Home() {
               <div className="relative group overflow-hidden rounded-2xl border border-white/10 hover:border-amber-500/50 transition-all duration-500">
                 <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <img 
-                  src="/06.png" 
-                  alt="Community Member 2"
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                  src="/community2.jpg" 
+                  alt="Blockchain Event"
+                  className="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs rounded-full">🏆 Top Earner</span>
+                    <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs rounded-full font-medium">🏆 Global Events</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white">Trusted Investors</h3>
-                  <p className="text-gray-400 text-sm">Verified investors with proven track records</p>
-                </div>
-              </div>
-              
-              {/* Investor Card 3 */}
-              <div className="relative group overflow-hidden rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-500">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <img 
-                  src="/07.png" 
-                  alt="Community Member 3"
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">🌍 Global</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-white">Global Network</h3>
+                  <h3 className="text-xl font-bold text-white">Trusted Network</h3>
                   <p className="text-gray-400 text-sm">Connect with investors from around the world</p>
                 </div>
               </div>
