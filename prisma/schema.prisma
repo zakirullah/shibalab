@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Wallet-based User Model (No Email Required)
+model User {
+  id            String   @id @default(cuid())
+  walletAddress String   @unique
+  balance       Float    @default(0)
+  totalDeposited Float   @default(0)
+  totalWithdrawn Float   @default(0)
+  totalProfit    Float   @default(0)
+  referralCode  String?  @unique
+  referredBy    String?
+  status        String   @default("active")
+  lastLoginAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  deposits      Deposit[]
+  withdrawals   Withdrawal[]
+  transactions  Transaction[]
+  chatMessages  ChatMessage[]
+}
+
+model MiningPackage {
+  id          String   @id @default(cuid())
+  name        String
+  deposit     Float
+  totalReturn Float
+  profit      Float
+  dh_s        Float
+  duration    Int      @default(30)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  deposits    Deposit[]
+}
+
+model Deposit {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  packageId     String?
+  package       MiningPackage? @relation(fields: [packageId], references: [id])
+  amount        Float
+  txHash        String?
+  status        String   @default("pending")
+  startedAt     DateTime?
+  endsAt        DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  transactions  Transaction[]
+}
+
+model Withdrawal {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount        Float
+  walletAddress String
+  txHash        String?
+  status        String   @default("pending")
+  approvedBy    String?
+  approvedAt    DateTime?
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  transactions  Transaction[]
+}
+
+model Transaction {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type          String
+  amount        Float
+  status        String   @default("completed")
+  depositId     String?
+  deposit       Deposit? @relation(fields: [depositId], references: [id])
+  withdrawalId  String?
+  withdrawal    Withdrawal? @relation(fields: [withdrawalId], references: [id])
+  description   String?
+  txHash        String?
+  createdAt     DateTime @default(now())
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  role      String   @default("admin")
+  active    Boolean  @default(true)
+  lastLogin DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PlatformSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message   String
+  sender    String
+  isAdmin   Boolean  @default(false)
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model PlatformStats {
+  id               String   @id @default(cuid())
+  totalUsers       Int      @default(0)
+  totalInvestment  Float    @default(0)
+  totalWithdrawals Float    @default(0)
+  activeDeposits   Int      @default(0)
+  lastUpdated      DateTime @updatedAt
+}
