@@ -308,16 +308,29 @@ export default function AdminPanel() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   // Data States
-  const [users, setUsers] = useState<User[]>(mockUsers)
-  const [deposits, setDeposits] = useState<Deposit[]>(mockDeposits)
-  const [withdrawals, setWithdrawals] = useState<Withdrawal[]>(mockWithdrawals)
+  const [users, setUsers] = useState<User[]>([])
+  const [deposits, setDeposits] = useState<Deposit[]>([])
+  const [withdrawals, setWithdrawals] = useState<Withdrawal[]>([])
   const [plans, setPlans] = useState<MiningPlan[]>(mockPlans)
-  const [investments, setInvestments] = useState<Investment[]>(mockInvestments)
+  const [investments, setInvestments] = useState<Investment[]>([])
   const [broadcasts, setBroadcasts] = useState<Broadcast[]>(mockBroadcasts)
   const [tickets, setTickets] = useState<SupportTicket[]>(mockTickets)
   const [logs, setLogs] = useState<AdminLog[]>(mockLogs)
   const [notifications, setNotifications] = useState<Notification[]>(mockNotifications)
   const [settings, setSettings] = useState<PlatformSettings>(initialSettings)
+  const [loading, setLoading] = useState(false)
+  const [platformStats, setPlatformStats] = useState({
+    totalUsers: 0,
+    totalDeposits: 0,
+    totalWithdrawals: 0,
+    pendingDeposits: 0,
+    pendingWithdrawals: 0,
+    activeInvestments: 0,
+    totalActiveAmount: 0,
+    totalProfitDistributed: 0,
+    onlineUsers: 0,
+    packageDistribution: {} as Record<string, number>
+  })
 
   // Search & Filter States
   const [userSearch, setUserSearch] = useState('')
@@ -361,6 +374,86 @@ export default function AdminPanel() {
   useEffect(() => {
     setIsLoggedIn(checkAdminSession())
   }, [])
+
+  // Fetch real data when logged in
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchRealData()
+    }
+  }, [isLoggedIn])
+
+  // Fetch real data from API
+  const fetchRealData = async () => {
+    setLoading(true)
+    try {
+      // Fetch users
+      const usersRes = await fetch('/api/admin/users')
+      const usersData = await usersRes.json()
+      if (usersData.success) {
+        const mappedUsers = usersData.users.map((u: any) => ({
+          id: u.id,
+          username: u.wallet_address?.slice(0, 8) || 'User',
+          email: u.email || '-',
+          walletAddress: u.wallet_address,
+          balance: u.balance || 0,
+          totalDeposited: u.total_deposited || 0,
+          totalWithdrawn: u.total_withdrawn || 0,
+          totalProfit: u.total_earned || 0,
+          status: u.status || 'active',
+          joinDate: u.created_at?.split('T')[0] || '-',
+          lastLogin: u.updated_at?.split('T')[0] || '-',
+        }))
+        setUsers(mappedUsers)
+      }
+
+      // Fetch deposits
+      const depositsRes = await fetch('/api/admin/deposits')
+      const depositsData = await depositsRes.json()
+      if (depositsData.success) {
+        const mappedDeposits = depositsData.deposits.map((d: any) => ({
+          id: d.id,
+          userId: d.user_id || '-',
+          username: d.wallet_address?.slice(0, 8) || 'User',
+          walletAddress: d.wallet_address,
+          amount: d.amount || 0,
+          currency: 'SHIB',
+          txHash: d.tx_hash || '-',
+          status: d.status === 'confirmed' ? 'approved' : d.status,
+          date: d.created_at || '-',
+          plan: d.package_name || '-',
+        }))
+        setDeposits(mappedDeposits)
+      }
+
+      // Fetch withdrawals
+      const withdrawalsRes = await fetch('/api/admin/withdrawals')
+      const withdrawalsData = await withdrawalsRes.json()
+      if (withdrawalsData.success) {
+        const mappedWithdrawals = withdrawalsData.withdrawals.map((w: any) => ({
+          id: w.id,
+          userId: w.user_id || '-',
+          username: w.wallet_address?.slice(0, 8) || 'User',
+          walletAddress: w.wallet_address,
+          amount: w.amount || 0,
+          status: w.status === 'completed' ? 'sent' : w.status,
+          date: w.created_at || '-',
+          txHash: w.tx_hash || undefined,
+        }))
+        setWithdrawals(mappedWithdrawals)
+      }
+
+      // Fetch platform stats
+      const statsRes = await fetch('/api/admin/stats')
+      const statsData = await statsRes.json()
+      if (statsData.success) {
+        setPlatformStats(statsData.stats)
+      }
+
+    } catch (error) {
+      console.error('Failed to fetch data:', error)
+    }
+    setLoading(false)
+  }
 
   // Add log entry
   const addLog = (action: string, details: string) => {
@@ -471,16 +564,57 @@ export default function AdminPanel() {
     return matchesSearch && matchesFilter
   })
 
-  const handleApproveDeposit = (deposit: Deposit) => {
-    setDeposits(prev => prev.map(d => d.id === deposit.id ? { ...d, status: 'approved' } : d))
-    addLog('APPROVE_DEPOSIT', `Approved deposit #${deposit.id} for ${formatNumber(deposit.amount)} SHIB from user ${deposit.username}`)
-    addNotification('deposit', `Deposit #${deposit.id} approved - ${formatNumber(deposit.amount)} SHIB`)
+  const handleApproveDeposit = async (deposit: Deposit) => {
+    try {
+      const response = await fetch('/api/admin/deposits', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'approve',
+          depositId: deposit.id,
+          txHash: deposit.txHash || 'manual_approval'
+        })
+      })
+      const data = await response.json()
+      
+      if (data.success) {
+        setDeposits(prev => prev.map(d => d.id === deposit.id ? { ...d, status: 'approved' } : d))
+        addLog('APPROVE_DEPOSIT', `Approved deposit #${deposit.id} for ${formatNumber(deposit.amount)} SHIB from user ${deposit.username}`)
+        addNotification('deposit', `Deposit #${deposit.id} approved - ${formatNumber(deposit.amount)} SHIB`)
+        fetchRealData()
+      } else {
+        alert('Failed to approve deposit: ' + (data.message || 'Unknown error'))
+      }
+    } catch (error) {
+      console.error('Approve deposit error:', error)
+      alert('Failed to approve deposit')
+    }
   }
 
-  const handleRejectDeposit = (deposit: Deposit) => {
+  const handleRejectDeposit = async (deposit: Deposit) => {
     if (confirm('Are you sure you want to reject this deposit?')) {
-      setDeposits(prev => prev.map(d => d.id === deposit.id ? { ...d, status: 'rejected' } : d))
-      addLog('REJECT_DEPOSIT', `Rejected deposit #${deposit.id} for ${formatNumber(deposit.amount)} SHIB from user ${deposit.username}`)
+      try {
+        const response = await fetch('/api/admin/deposits', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'reject',
+            depositId: deposit.id,
+            reason: 'Rejected by admin'
+          })
+        })
+        const data = await response.json()
+        
+        if (data.success) {
+          setDeposits(prev => prev.map(d => d.id === deposit.id ? { ...d, status: 'rejected' } : d))
+          addLog('REJECT_DEPOSIT', `Rejected deposit #${deposit.id} for ${formatNumber(deposit.amount)} SHIB from user ${deposit.username}`)
+        } else {
+          alert('Failed to reject deposit: ' + (data.message || 'Unknown error'))
+        }
+      } catch (error) {
+        console.error('Reject deposit error:', error)
+        alert('Failed to reject deposit')
+      }
     }
   }
 
@@ -490,26 +624,85 @@ export default function AdminPanel() {
 
   const filteredWithdrawals = withdrawals.filter(w => withdrawalFilter === 'all' || w.status === withdrawalFilter)
 
-  const handleApproveWithdrawal = (w: Withdrawal) => {
-    setWithdrawals(prev => prev.map(item => item.id === w.id ? { ...item, status: 'approved' } : item))
-    addLog('APPROVE_WITHDRAWAL', `Approved withdrawal #${w.id} for ${formatNumber(w.amount)} SHIB`)
-    addNotification('withdrawal', `Withdrawal #${w.id} approved - ${formatNumber(w.amount)} SHIB`)
-  }
-
-  const handleRejectWithdrawal = (w: Withdrawal) => {
-    if (confirm('Are you sure you want to reject this withdrawal?')) {
-      setWithdrawals(prev => prev.map(item => item.id === w.id ? { ...item, status: 'rejected' } : item))
-      addLog('REJECT_WITHDRAWAL', `Rejected withdrawal #${w.id} for ${formatNumber(w.amount)} SHIB`)
+  const handleApproveWithdrawal = async (w: Withdrawal) => {
+    try {
+      const response = await fetch('/api/admin/withdrawals', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'approve',
+          withdrawalId: w.id
+        })
+      })
+      const data = await response.json()
+      
+      if (data.success) {
+        setWithdrawals(prev => prev.map(item => item.id === w.id ? { ...item, status: 'approved' } : item))
+        addLog('APPROVE_WITHDRAWAL', `Approved withdrawal #${w.id} for ${formatNumber(w.amount)} SHIB`)
+        addNotification('withdrawal', `Withdrawal #${w.id} approved - ${formatNumber(w.amount)} SHIB`)
+      } else {
+        alert('Failed to approve withdrawal: ' + (data.message || 'Unknown error'))
+      }
+    } catch (error) {
+      console.error('Approve withdrawal error:', error)
+      alert('Failed to approve withdrawal')
     }
   }
 
-  const handleMarkSent = () => {
+  const handleRejectWithdrawal = async (w: Withdrawal) => {
+    if (confirm('Are you sure you want to reject this withdrawal?')) {
+      try {
+        const response = await fetch('/api/admin/withdrawals', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'reject',
+            withdrawalId: w.id
+          })
+        })
+        const data = await response.json()
+        
+        if (data.success) {
+          setWithdrawals(prev => prev.map(item => item.id === w.id ? { ...item, status: 'rejected' } : item))
+          addLog('REJECT_WITHDRAWAL', `Rejected withdrawal #${w.id} for ${formatNumber(w.amount)} SHIB`)
+        } else {
+          alert('Failed to reject withdrawal: ' + (data.message || 'Unknown error'))
+        }
+      } catch (error) {
+        console.error('Reject withdrawal error:', error)
+        alert('Failed to reject withdrawal')
+      }
+    }
+  }
+
+  const handleMarkSent = async () => {
     if (showTxModal && txHashInput) {
-      setWithdrawals(prev => prev.map(w => w.id === showTxModal ? { ...w, status: 'sent', txHash: txHashInput } : w))
-      addLog('MARK_SENT', `Marked withdrawal #${showTxModal} as sent. TX: ${txHashInput}`)
-      addNotification('withdrawal', `Withdrawal #${showTxModal} sent - TX Hash recorded`)
-      setShowTxModal(null)
-      setTxHashInput('')
+      try {
+        const response = await fetch('/api/admin/withdrawals', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'process',
+            withdrawalId: showTxModal,
+            txHash: txHashInput
+          })
+        })
+        const data = await response.json()
+        
+        if (data.success) {
+          setWithdrawals(prev => prev.map(w => w.id === showTxModal ? { ...w, status: 'sent', txHash: txHashInput } : w))
+          addLog('MARK_SENT', `Marked withdrawal #${showTxModal} as sent. TX: ${txHashInput}`)
+          addNotification('withdrawal', `Withdrawal #${showTxModal} sent - TX Hash recorded`)
+          setShowTxModal(null)
+          setTxHashInput('')
+          fetchRealData()
+        } else {
+          alert('Failed to mark withdrawal as sent: ' + (data.message || 'Unknown error'))
+        }
+      } catch (error) {
+        console.error('Mark sent error:', error)
+        alert('Failed to mark withdrawal as sent')
+      }
     }
   }
 
@@ -887,19 +1080,26 @@ export default function AdminPanel() {
           {/* ========== DASHBOARD ========== */}
           {activeMenu === 'dashboard' && (
             <div className="space-y-6">
+              {/* Loading State */}
+              {loading && (
+                <div className="flex items-center justify-center py-12">
+                  <div className="text-cyan-400 text-xl animate-pulse">🔄 Loading real data...</div>
+                </div>
+              )}
+              
               {/* Stats Grid */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
-                  { icon: '👥', label: 'Total Users', value: users.length, color: 'cyan' },
-                  { icon: '🟢', label: 'Active Users', value: users.filter(u => u.status === 'active').length, color: 'green' },
-                  { icon: '💰', label: 'Total Deposits', value: formatNumber(deposits.filter(d => d.status === 'approved').reduce((sum, d) => sum + d.amount, 0)) + ' SHIB', color: 'blue' },
-                  { icon: '💸', label: 'Total Withdrawals', value: formatNumber(withdrawals.filter(w => w.status === 'sent').reduce((sum, w) => sum + w.amount, 0)) + ' SHIB', color: 'purple' },
-                  { icon: '⏳', label: 'Pending Withdrawals', value: withdrawals.filter(w => w.status === 'pending').length, color: 'amber' },
-                  { icon: '📈', label: 'Active Investments', value: investments.filter(i => i.status === 'active').length, color: 'green' },
-                  { icon: '🌐', label: 'Online Users', value: Math.floor(users.length * 0.7), color: 'cyan' },
-                  { icon: '💎', label: 'Profit Distributed', value: formatNumber(investments.reduce((sum, i) => sum + i.totalProfit, 0)) + ' SHIB', color: 'pink' },
+                  { icon: '👥', label: 'Total Users', value: platformStats.totalUsers, color: 'cyan' },
+                  { icon: '💰', label: 'Total Deposits', value: formatNumber(platformStats.totalDeposits) + ' SHIB', color: 'blue' },
+                  { icon: '💸', label: 'Total Withdrawals', value: formatNumber(platformStats.totalWithdrawals) + ' SHIB', color: 'purple' },
+                  { icon: '⏳', label: 'Pending Deposits', value: platformStats.pendingDeposits, color: 'amber' },
+                  { icon: '⏰', label: 'Pending Withdrawals', value: platformStats.pendingWithdrawals, color: 'red' },
+                  { icon: '📈', label: 'Active Investments', value: platformStats.activeInvestments, color: 'green' },
+                  { icon: '🌐', label: 'Online Users', value: platformStats.onlineUsers, color: 'cyan' },
+                  { icon: '💎', label: 'Profit Distributed', value: formatNumber(platformStats.totalProfitDistributed) + ' SHIB', color: 'pink' },
                 ].map((stat, i) => (
-                  <div key={i} className={`bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-${stat.color}-500/30 rounded-xl p-4 hover:border-${stat.color}-500/60 transition-all`}>
+                  <div key={i} className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-cyan-500/30 rounded-xl p-4 hover:border-cyan-500/60 transition-all">
                     <div className="flex items-start justify-between">
                       <div>
                         <p className="text-gray-400 text-sm">{stat.label}</p>
@@ -911,78 +1111,76 @@ export default function AdminPanel() {
                 ))}
               </div>
 
-              {/* Charts Row */}
+              {/* Recent Activity - REAL DATA */}
               <div className="grid lg:grid-cols-2 gap-6">
-                {/* Deposits Chart */}
+                {/* Recent Deposits */}
                 <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-cyan-500/20 rounded-xl p-6">
-                  <h3 className="text-lg font-bold text-white mb-4">📊 Daily Deposits</h3>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <AreaChart data={depositChartData}>
-                      <defs>
-                        <linearGradient id="depositGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor={COLORS.cyan} stopOpacity={0.3}/>
-                          <stop offset="95%" stopColor={COLORS.cyan} stopOpacity={0}/>
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                      <XAxis dataKey="name" stroke="#9ca3af" />
-                      <YAxis stroke="#9ca3af" tickFormatter={(v) => `${v/1000000}M`} />
-                      <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #06b6d4', borderRadius: '8px' }} formatter={(v: number) => [formatNumber(v) + ' SHIB', 'Deposits']} />
-                      <Area type="monotone" dataKey="value" stroke={COLORS.cyan} fill="url(#depositGrad)" strokeWidth={2} />
-                    </AreaChart>
-                  </ResponsiveContainer>
+                  <h3 className="text-lg font-bold text-white mb-4">💰 Recent Deposits</h3>
+                  <div className="space-y-3 max-h-64 overflow-y-auto">
+                    {deposits.length === 0 ? (
+                      <p className="text-gray-400 text-center py-8">No deposits yet</p>
+                    ) : (
+                      deposits.slice(0, 5).map((d) => (
+                        <div key={d.id} className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+                          <div>
+                            <p className="text-white font-medium">{formatNumber(d.amount)} SHIB</p>
+                            <p className="text-gray-400 text-xs">{d.walletAddress?.slice(0, 10)}...{d.walletAddress?.slice(-6)}</p>
+                          </div>
+                          <span className={`px-2 py-1 rounded text-xs font-medium ${
+                            d.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+                            d.status === 'pending' ? 'bg-yellow-500/20 text-yellow-400' :
+                            'bg-red-500/20 text-red-400'
+                          }`}>
+                            {d.status}
+                          </span>
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </div>
 
-                {/* Withdrawals Chart */}
+                {/* Recent Withdrawals */}
                 <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-cyan-500/20 rounded-xl p-6">
-                  <h3 className="text-lg font-bold text-white mb-4">💸 Daily Withdrawals</h3>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <BarChart data={withdrawalChartData}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                      <XAxis dataKey="name" stroke="#9ca3af" />
-                      <YAxis stroke="#9ca3af" tickFormatter={(v) => `${v/1000000}M`} />
-                      <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #f59e0b', borderRadius: '8px' }} formatter={(v: number) => [formatNumber(v) + ' SHIB', 'Withdrawals']} />
-                      <Bar dataKey="value" fill={COLORS.warning} radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
+                  <h3 className="text-lg font-bold text-white mb-4">💸 Recent Withdrawals</h3>
+                  <div className="space-y-3 max-h-64 overflow-y-auto">
+                    {withdrawals.length === 0 ? (
+                      <p className="text-gray-400 text-center py-8">No withdrawals yet</p>
+                    ) : (
+                      withdrawals.slice(0, 5).map((w) => (
+                        <div key={w.id} className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+                          <div>
+                            <p className="text-white font-medium">{formatNumber(w.amount)} SHIB</p>
+                            <p className="text-gray-400 text-xs">{w.walletAddress?.slice(0, 10)}...{w.walletAddress?.slice(-6)}</p>
+                          </div>
+                          <span className={`px-2 py-1 rounded text-xs font-medium ${
+                            w.status === 'sent' ? 'bg-green-500/20 text-green-400' :
+                            w.status === 'pending' ? 'bg-yellow-500/20 text-yellow-400' :
+                            w.status === 'approved' ? 'bg-blue-500/20 text-blue-400' :
+                            'bg-red-500/20 text-red-400'
+                          }`}>
+                            {w.status}
+                          </span>
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* User Growth & Distribution */}
-              <div className="grid lg:grid-cols-2 gap-6">
-                <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-cyan-500/20 rounded-xl p-6">
-                  <h3 className="text-lg font-bold text-white mb-4">📈 User Growth</h3>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <LineChart data={userGrowthData}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                      <XAxis dataKey="name" stroke="#9ca3af" />
-                      <YAxis stroke="#9ca3af" />
-                      <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #8b5cf6', borderRadius: '8px' }} />
-                      <Line type="monotone" dataKey="users" stroke={COLORS.secondary} strokeWidth={3} dot={{ fill: COLORS.secondary, strokeWidth: 2 }} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-
-                <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-cyan-500/20 rounded-xl p-6">
-                  <h3 className="text-lg font-bold text-white mb-4">📦 Package Distribution</h3>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <PieChart>
-                      <Pie data={packageDistribution} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={2} dataKey="value">
-                        {packageDistribution.map((entry, index) => (
-                          <Cell key={index} fill={entry.color} />
-                        ))}
-                      </Pie>
-                      <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #06b6d4', borderRadius: '8px' }} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                  <div className="flex flex-wrap justify-center gap-3 mt-4">
-                    {packageDistribution.map((item) => (
-                      <div key={item.name} className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
-                        <span className="text-gray-400 text-xs">{item.name}</span>
+              {/* Package Distribution - REAL DATA */}
+              <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-cyan-500/20 rounded-xl p-6">
+                <h3 className="text-lg font-bold text-white mb-4">📦 Package Distribution</h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                  {Object.keys(platformStats.packageDistribution).length === 0 ? (
+                    <p className="text-gray-400 col-span-6 text-center py-4">No packages yet</p>
+                  ) : (
+                    Object.entries(platformStats.packageDistribution).map(([name, count]) => (
+                      <div key={name} className="bg-slate-800/50 rounded-lg p-4 text-center">
+                        <p className="text-2xl font-bold text-cyan-400">{count}</p>
+                        <p className="text-gray-400 text-sm">{name}</p>
                       </div>
-                    ))}
-                  </div>
+                    ))
+                  )}
                 </div>
               </div>
             </div>
