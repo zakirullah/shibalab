@@ -7,14 +7,14 @@ const PLATFORM_WALLET = '0x33cb374635ab51fc669c1849b21b589a17475fc3'
 const SUPPORT_EMAIL = 'Shibalab.mining@gmail.com'
 const WEBSITE_LAUNCH_DATE = '7 March 2026'
 
-// Mining Packages - 130% ROI - Different Light/Hard Colors
+// Mining Packages - 130% ROI - Beautiful Gradient Colors
 const miningPackages = [
-  { id: 1, name: 'Starter', deposit: 100000, totalReturn: 130000, profit: 30000, daily: 1000, lightColor: 'bg-sky-100 border-sky-300', hardColor: 'from-sky-400 to-sky-600', textColor: 'text-sky-600', icon: '💎', image: '/01.png' },
-  { id: 2, name: 'Bronze', deposit: 250000, totalReturn: 325000, profit: 75000, daily: 2500, lightColor: 'bg-orange-100 border-orange-300', hardColor: 'from-orange-400 to-orange-600', textColor: 'text-orange-600', icon: '🥉', image: '/02.png' },
-  { id: 3, name: 'Silver', deposit: 500000, totalReturn: 650000, profit: 150000, daily: 5000, lightColor: 'bg-slate-100 border-slate-300', hardColor: 'from-slate-400 to-slate-600', textColor: 'text-slate-600', icon: '🥈', image: '/03.png' },
-  { id: 4, name: 'Gold', deposit: 1000000, totalReturn: 1300000, profit: 300000, daily: 10000, lightColor: 'bg-yellow-100 border-yellow-400', hardColor: 'from-yellow-400 to-amber-600', textColor: 'text-yellow-600', icon: '🥇', popular: true, image: '/04.png' },
-  { id: 5, name: 'Platinum', deposit: 2500000, totalReturn: 3250000, profit: 750000, daily: 25000, lightColor: 'bg-teal-100 border-teal-300', hardColor: 'from-teal-400 to-teal-600', textColor: 'text-teal-600', icon: '💠', image: '/05.png' },
-  { id: 6, name: 'Diamond', deposit: 5000000, totalReturn: 6500000, profit: 1500000, daily: 50000, lightColor: 'bg-purple-100 border-purple-300', hardColor: 'from-purple-400 to-purple-600', textColor: 'text-purple-600', icon: '👑', image: '/06.png' },
+  { id: 1, name: 'Starter', deposit: 100000, totalReturn: 130000, profit: 30000, daily: 1000, lightColor: 'bg-cyan-500/10 border-cyan-500/30', hardColor: 'from-cyan-400 to-cyan-600', textColor: 'text-cyan-400', icon: '⭐' },
+  { id: 2, name: 'Bronze', deposit: 250000, totalReturn: 325000, profit: 75000, daily: 2500, lightColor: 'bg-amber-500/10 border-amber-500/30', hardColor: 'from-amber-500 to-orange-600', textColor: 'text-amber-400', icon: '🥉' },
+  { id: 3, name: 'Silver', deposit: 500000, totalReturn: 650000, profit: 150000, daily: 5000, lightColor: 'bg-slate-400/10 border-slate-400/30', hardColor: 'from-slate-300 to-slate-500', textColor: 'text-slate-300', icon: '🥈' },
+  { id: 4, name: 'Gold', deposit: 1000000, totalReturn: 1300000, profit: 300000, daily: 10000, lightColor: 'bg-yellow-500/10 border-yellow-500/30', hardColor: 'from-yellow-400 to-yellow-600', textColor: 'text-yellow-400', icon: '🥇', popular: true },
+  { id: 5, name: 'Platinum', deposit: 2500000, totalReturn: 3250000, profit: 750000, daily: 25000, lightColor: 'bg-emerald-500/10 border-emerald-500/30', hardColor: 'from-emerald-400 to-emerald-600', textColor: 'text-emerald-400', icon: '💠' },
+  { id: 6, name: 'Diamond', deposit: 5000000, totalReturn: 6500000, profit: 1500000, daily: 50000, lightColor: 'bg-purple-500/10 border-purple-500/30', hardColor: 'from-purple-400 to-pink-600', textColor: 'text-purple-400', icon: '👑' },
 ]
 
 // Owner Plans
@@ -881,15 +881,8 @@ export default function Home() {
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${pkg.hardColor} opacity-20 rounded-2xl`}></div>
                   <div className="relative z-10">
-                    {/* Package Image */}
-                    <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-3">
-                      <img 
-                        src={pkg.image} 
-                        alt={pkg.name}
-                        className="w-full h-full object-contain drop-shadow-lg"
-                      />
-                    </div>
-                    <div className="text-3xl md:text-4xl mb-2">{pkg.icon}</div>
+                    {/* Package Icon */}
+                    <div className="text-4xl md:text-5xl mb-2">{pkg.icon}</div>
                     <div className={`text-lg font-bold ${pkg.textColor}`}>{pkg.name}</div>
                     <div className="text-sm text-gray-400 mt-1">{formatNumber(pkg.deposit, 0)} SHIB</div>
                     <div className="text-xs text-green-400 mt-1">+{pkg.profit >= 1000000 ? `${pkg.profit/1000000}M` : `${pkg.profit/1000}K`} Profit</div>
@@ -1277,13 +1270,9 @@ export default function Home() {
                     </div>
                   </div>
                   
-                  {/* Package Image */}
+                  {/* Package Icon */}
                   <div className="relative h-32 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center">
-                    <img 
-                      src={pkg.image} 
-                      alt={`${pkg.name} Package`}
-                      className="w-20 h-20 object-contain drop-shadow-2xl hover:scale-110 transition-transform duration-300"
-                    />
+                    <div className="text-6xl">{pkg.icon}</div>
                     <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 bg-black/50 rounded-lg backdrop-blur-sm">
                       <span className="text-xs">⛏️</span>
                       <span className="text-xs font-bold text-amber-400">ShibaLab</span>
@@ -3149,17 +3138,9 @@ export default function Home() {
                       </div>
                     )}
                     
-                    {/* Package Image */}
-                    <div className="w-12 h-12 mx-auto mb-2">
-                      <img 
-                        src={pkg.image} 
-                        alt={pkg.name}
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                    
+                    {/* Package Icon */}
                     <div className="text-center">
-                      <div className="text-2xl mb-1">{pkg.icon}</div>
+                      <div className="text-3xl mb-1">{pkg.icon}</div>
                       <div className={`font-bold text-sm ${selectedPackage === pkg.id ? pkg.textColor : 'text-white'}`}>{pkg.name}</div>
                       <div className="text-xs text-gray-400 mt-1">{formatNumber(pkg.deposit, 0)} SHIB</div>
                       <div className="text-xs text-green-400 mt-1">+{formatNumber(pkg.profit, 0)} Profit</div>
